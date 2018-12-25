@@ -1,0 +1,73 @@
+
+/* -----    Navbar content ----- */
+
+
+.cart-info {
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 4px;
+  text-size: 10px;
+}
+
+.cart-info:hover {
+  background-color: green;
+}
+
+.cart-info-icon {
+
+}
+
+.item-count {
+
+}
+
+/* Cart dropdown listed items styling */
+.cart {
+  position: absolute;
+  min-height: 10rem;
+  background-color: rgba(255, 255, 255, 0.8);
+  top: 0;
+  right: 0;
+  transition: all 0.4s ease-in-out;
+  width: 0;
+  overflow: hidden;
+
+}
+
+.show-cart {
+  width: 15rem;
+  padding: 2rem 1.5rem;
+  top: 85px;
+  transform: rotateY(-360deg);
+}
+
+.trashIcon {
+  color: black;
+  transition: all 1s ease-in-out;
+}
+
+.cart-item-title {
+  transition: all 2s ease-in-out;
+  text-transform: capitalize;
+}
+
+.trashIcon:hover {
+  transform: scale(1.1);
+  color: red;
+}
+
+.cart-item-price {
+  font-size: 0.5rem;
+}
+
+.cart-item img {
+  height: 20px;
+  width: auto;
+  position: relative;
+}
+
+.cartTotal {
+  justify-content: center;
+  align content: center:
+  margin-top: 5px;
+}

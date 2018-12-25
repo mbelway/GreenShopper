@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+  <!-- For HTML5 -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- CSS style sheet -->
+  <link rel="stylesheet" type="text/css" href="StyleSheet2.css"/>
+
+
+
+  <!-- For Bootstrap -->
+  <link rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+  crossorigin="anonymous">
+
+  <!-- script for the quaggaJS API -->
+  <script src="https://cdn.rawgit.com/serratus/quaggaJS/0420d5e0/dist/quagga.min.js"></script>
+
+  <title>Green Shopper Demo</title>
+
+  <!-- QuaggaJS tracking placement -->
+  <style>
+        canvas.drawing, canvas.drawingBuffer {
+            position: absolute;
+            left: 5px;
+            top: 20px;
+        }
+  </style>
+
+  <!-- Slick carousel stylesheet -->
+  <link rel="stylesheet" type="text/css" href="slick-1.8.1/slick/slick.css"/>
+  <link rel="stylesheet" type="text/css" href="slick-1.8.1/slick/slick-theme.css"/>
+
+</head>
+<body>
+
+  <header id="header">
+
+    <!-- NavBar Start -->
+    <nav class="navbar navbar-dark bg-dark navbar-expand-md px-3">
+      <!--Brand image -->
+      <a href="#" class="navbar-brand"><img src="icons/globe_icon.png" alt="Logo" style="width: 40px;"></a>
+      <!-- Navigation collapse button -->
+      <button type="button" class="navbar-toggler mr-auto" data-toggle="collapse" data-target="#navbarCollapse">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+      <!-- Navigation Links -->
+      <div class="collapse navbar-collapse justify-content-center" id="navbarCollapse">
+        <ul class="navbar-nav">
+          <li class="navbar-item">
+            <a href="#" class="nav-link">Home</a>
+          </li>
+          <li class="navbar-item">
+            <a href="#" class="nav-link">About</a>
+          </li>
+          <li class="navbar-item">
+            <a href="#" class="nav-link">More</a>
+          </li>
+          <li class="navbar-item">
+            <a href="#" class="nav-link">Even More</a>
+          </li>
+        </ul>
+      </div>
+      <!-- Navigation Cart Outside of Collapse -->
+      <div id="cart-info" class="navbar-text nav-info cart-info d-flex align-items-center justify-content-between mx-lg-5">
+        <span class="cart-info-icon">
+          <img src="icons/shoppingCart.png" alt="cart image" style="width: 1.5rem;" class="cart-img mr-2">
+          </span>
+          <p class="mb-0 text-capitalize">
+          <span id="item-count"> 3 </span>items - $<span class="item-total">10.50</span></p>
+      </div>
+
+    </nav>
+  </header>
+  <!-- End of Navigation Bar -->
+
+  <!-- Begin Main Content Area -->
+  <section class="content-area py-5" id="content-area">
+    <div class="container align-items-center">
+      <div class="row max-height justify-content-center align-items-center">
+        <div class="col-10 md-6 my-0 mx-auto text-center">
+          <!-- Scan modal button -->
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#scannerModal">
+          SCAN ITEM
+          </button>
+          <!-- Modal container -->
+          <div class="modal fade" id="scannerModal" tabindex="-1" role="dialog" aria-labelledby="scannerModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+              <!-- modal header items -->
+                <div class="modal-header">
+                  <h5 class="modal-title" id="scannerModalLabel">Modal Scanner</h5>
+                  <button type="button" class="close" id="modalClose" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <!-- Modal Scan Window -->
+                <div class="modal-body">
+                  <!-- scanner area -->
+                  <div id="scanner-container"></div>
+                </div>
+                <!-- modal footer items -->
+                <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="scanbtn">Start Scan</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- End modal container -->
+        </div>
+      </div>
+      <!-- start fold-out cart viewport -->
+      <div class="cart" id="cart">
+        <!-- start single item -->
+        <div class="cartItem d-flex justify-content-between text-capitalize">
+          <img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/globe_icon.png" class="cart-image" id="item-img" alt="">
+          <div class="item-text">
+            <p id="cart-item-title">cart item
+              <br>
+            <span>$</span>
+            <span id="cart-item-price" class="cart-item-price">10.99</span>
+            </p>
+          </div>
+          <a href="#" id="trashIcon" class="trashIcon"><img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/trashcan.png"></a>
+        </div>
+        <!-- end item -->
+        <!-- start single item -->
+        <div class="cartItem d-flex justify-content-between text-capitalize">
+          <img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/globe_icon.png" class="cart-image" id="item-img" alt="">
+          <div class="item-text">
+            <p id="cart-item-title">cart item
+              <br>
+              <span>$</span>
+              <span id="cart-item-price">14.99</span>
+            </p>
+          </div>
+          <a href="#" id="trashIcon" class="trashIcon"><img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/trashcan.png"></a>
+        </div>
+        <!-- end of item -->
+        <!-- start totals -->
+        <div class="cartTotal d-flex justify-content-around text-capitalize margin-top-5">
+          <h5>total</h5>
+          <h5><strong id="cart-total" class="bold text">10.00</strong></h5>
+        </div>
+        <!-- end totals -->
+        <!-- start fold-out buttons -->
+        <div class="cart-buttons-container d-flex justify-content-between">
+          <a href="#" id="clear-cart" class="btn btn-black text-uppercase">clear cart</a>
+          <a href="#" id="clear-cart" class="btn btn-red text-uppercase">checkout</a>
+        </div>
+        <!-- end fold-out buttons -->
+      </div>
+      <!-- end of fold-out cart list -->
+    </div>
+  </section>
+  <!-- end of Main Content area -->
+
+  <!-- slider container begin -->
+  <section class="view-area py-5" id="view-area">
+    <div class="container align-items-center">
+      <div class="row max-height justify-content-center align-items-center">
+        <div class="col-10 md-6 my-0 mx-auto text-center">
+          <!-- start slider selected viewport -->
+          <div class="slider-for mx-auto">
+            <div><img src="icons/panda.jpeg" alt="panda" style="height: 30vw; width: auto;"></div>
+            <div><img src="icons/PigMan.jpeg" alt="pig-man" style="height: 30vw; width: auto;"></div>
+            <div><img src="icons/SantaCruz.jpeg" alt="Santa Cruz classic" style="height: 30vw; width: auto;"></div>
+            <div><img src="icons/skull.jpeg" alt="Skull" style="height: 30vw; width: auto;"></div>
+          </div>
+          <!-- end slider selected viewport -->
+          <!-- start slider alternatives content -->
+          <div class="slider-nav mx-auto">
+            <div><img src="icons/panda.jpeg" alt="panda" style="height: 70px; width: auto;"></div>
+            <div><img src="icons/PigMan.jpeg" alt="pig-man"
+              style="height: 70px; width: auto;"></div>
+            <div><img src="icons/SantaCruz.jpeg" alt="Santa Cruz classic" style="height: 70px; width: auto;"></div>
+            <div><img src="icons/skull.jpeg" alt="Skull" style="height: 70px; width: auto;"></div>
+          </div>
+          <!-- end slider alternatives content -->
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- slider container end -->
+
+
+
+  <!-- Footer area -->
+  <footer>
+    <div class="container-fluid">
+      <div class="justify-content-center align-items-center col-md-6 footer py-4">
+        <h4 class="col-10 md-6 my-0 mx-auto text-center">TEST FOOTER TEXT</h4>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- QuaggaJS script -->
+  <script src="Necessary Files/quagga.min.js"></script>
+
+  <script>
+      var _scannerIsRunning = false;
+
+      /* Set up and starting scanner */
+      function startScanner() {
+          Quagga.init({
+              inputStream: {
+                  name: "Live",
+                  type: "LiveStream",
+                  numberOfWorkers: 1,
+                  target: document.querySelector('#scanner-container'),
+                  constraints: {
+                      width: 400,
+                      height: 300,
+                      facingMode: "environment"
+                  },
+              },
+              decoder: {
+                  readers: [
+                      //"code_128_reader",
+                      "ean_reader",
+                      //"ean_8_reader",
+                      //"code_39_reader",
+                      //"code_39_vin_reader",
+                      //"codabar_reader",
+                      //"upc_reader",
+                      //"upc_e_reader",
+                      //"i2of5_reader"
+                  ],
+                  debug: {
+                      showCanvas: true,
+                      showPatches: true,
+                      showFoundPatches: true,
+                      showSkeleton: true,
+                      showLabels: true,
+                      showPatchLabels: true,
+                      showRemainingPatchLabels: true,
+                      boxFromPatches: {
+                          showTransformed: true,
+                          showTransformedBox: true,
+                          showBB: true
+                      }
+                  }
+              },
+
+          },
+          function (err) {
+            if (err) {
+              console.log(err);
+              return
+            }
+
+            console.log("Initialization finished. Ready to start");
+
+            Quagga.start();
+
+              // Set flag to is running
+              _scannerIsRunning = true;
+
+            });
+
+          Quagga.onProcessed(function (result) {
+              var drawingCtx = Quagga.canvas.ctx.overlay,
+              drawingCanvas = Quagga.canvas.dom.overlay;
+
+              if (result) {
+                  if (result.boxes) {
+                      drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")), parseInt(drawingCanvas.getAttribute("height")));
+                      result.boxes.filter(function (box) {
+                          return box !== result.box;
+                      }).forEach(function (box) {
+                          Quagga.ImageDebug.drawPath(box, { x: 0, y: 1 }, drawingCtx, { color: "green", lineWidth: 2 });
+                      });
+                  }
+
+                  if (result.box) {
+                      Quagga.ImageDebug.drawPath(result.box, { x: 0, y: 1 }, drawingCtx, { color: "#00F", lineWidth: 2 });
+                  }
+
+                  if (result.codeResult && result.codeResult.code) {
+                      Quagga.ImageDebug.drawPath(result.line, { x: 'x', y: 'y' }, drawingCtx, { color: 'red', lineWidth: 3 });
+                  }
+              }
+          });
+
+          /* Barcode is found */
+          Quagga.onDetected(function (result) {
+              console.log("Barcode detected and processed : [" + result.codeResult.code + "]", result);
+
+          });
+      }
+
+      /* Turn off scanner if modal is closed before scanner is manually stopped */
+      document.getElementById("modalClose").addEventListener("click", function () {
+          if (_scannerIsRunning) {
+            Quagga.stop();
+              // Added code to stop scanner if modal is closed before scanner is stopped
+              _scannerIsRunning=false;
+          } else {
+          }
+        },
+        false);
+
+      /* Starting and stopping the scanner */
+      document.getElementById("scanbtn").addEventListener("click", function () {
+          if (_scannerIsRunning) {
+            Quagga.stop();
+              // Added code to stop scanner
+              _scannerIsRunning=false;
+          } else {
+              startScanner();
+          }
+        },
+        false);
+
+
+  </script>
+
+<!--   END SCANNER -->
+
+
+<!-- For Bootstrap 4: jQuery first, then Popper.js and then Bootstrap JS-->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+<!-- Requirements for Slick -->
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="slick-1.8.1/slick/slick.min.js"></script>
+
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.slider-for').slick({
+slidesToShow: 1,
+slidesToScroll: 1,
+arrows: false,
+fade: true,
+asNavFor: '.slider-nav'
+});
+$('.slider-nav').slick({
+slidesToShow: 2,
+slidesToScroll: 1,
+asNavFor: '.slider-for',
+dots: true,
+centerMode: true,
+focusOnSelect: true
+});
+});
+</script>
+
+<script>
+// Cart fold-out
+document.getElementById("cart-info").addEventListener("click", function() {
+  const cart = document.getElementById("cart");
+  cart.classList.toggle("show-cart");
+  console.log(cart);
+})
+</script>
+
+</body>
+</html>
