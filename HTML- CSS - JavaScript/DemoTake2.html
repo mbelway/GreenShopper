@@ -10,7 +10,7 @@
   <!-- CSS style sheet -->
   <link rel="stylesheet" type="text/css" href="/Users/matthewbelway/CodeBootcamp/Shop Demo/HTML, CSS & JavaScript/StyleSheet2.css"/>
 
-
+  <script src="/Users/matthewbelway/CodeBootcamp/Shop Demo/HTML, CSS & JavaScript/Demo_GreenShopper.js"></script>
 
   <!-- For Bootstrap -->
   <link rel="stylesheet"
@@ -26,8 +26,8 @@
   <style>
         canvas.drawing, canvas.drawingBuffer {
             position: absolute;
-            left: 5px;
-            top: 20px;
+            left: 27px;
+            top: 16px;
         }
   </style>
 
@@ -36,14 +36,17 @@
   <link rel="stylesheet" type="text/css" href="/Users/matthewbelway/CodeBootcamp/Shop Demo/slick-1.8.1/slick/slick-theme.css"/>
 
 </head>
-<body>
+
+
+<body class="body">
 
   <header id="header">
+
 
     <!-- NavBar Start -->
     <nav class="navbar navbar-dark bg-dark navbar-expand-md px-3">
       <!--Brand image -->
-      <a href="#" class="navbar-brand"><img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/globe_icon.png" alt="Logo" style="width: 40px;"></a>
+      <a href="#" class="navbar-brand order-0"><img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/globe_icon.png" alt="Logo" style="width: 40px;"></a>
       <!-- Navigation collapse button -->
       <button type="button" class="navbar-toggler mr-auto" data-toggle="collapse" data-target="#navbarCollapse">
           <span class="navbar-toggler-icon"></span>
@@ -65,18 +68,21 @@
           </li>
         </ul>
       </div>
-      <!-- Navigation Cart Outside of Collapse -->
-      <div id="cart-info" class="navbar-text nav-info cart-info d-flex align-items-center justify-content-between mx-lg-5">
+      <!-- Navigation Cart placed outside of Collapse -->
+      <div id="cart-info" class="navbar-text nav-info cart-info d-flex ml-auto mx-lg-5">
         <span class="cart-info-icon">
           <img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/shoppingCart.png" alt="cart image" style="width: 1.5rem;" class="cart-img mr-2">
-          </span>
-          <p class="mb-0 text-capitalize">
-          <span id="item-count"> 3 </span>items - $<span class="item-total">10.50</span></p>
+        </span>
+        <p class="mb-0 text-capitalize">
+          <span class="badge badge-info">4</span>
+        </p>
       </div>
 
     </nav>
   </header>
   <!-- End of Navigation Bar -->
+
+
 
   <!-- Begin Main Content Area -->
   <section class="content-area py-5" id="content-area">
@@ -84,7 +90,7 @@
       <div class="row max-height justify-content-center align-items-center">
         <div class="col-10 md-6 my-0 mx-auto text-center">
           <!-- Scan modal button -->
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#scannerModal">
+          <button type="button" class="btn btn-primary" id="scanItem" data-toggle="modal" data-target="#scannerModal">
           SCAN ITEM
           </button>
           <!-- Modal container -->
@@ -125,7 +131,9 @@
             <span id="cart-item-price" class="cart-item-price">10.99</span>
             </p>
           </div>
-          <a href="#" id="trashIcon" class="trashIcon"><img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/trashcan.png"></a>
+          <button type="button" class="btn trashIcon" id="trashIcon" aria-label="Close">
+          <span>&times;</span>
+          </button>
         </div>
         <!-- end item -->
         <!-- start single item -->
@@ -138,19 +146,51 @@
               <span id="cart-item-price">14.99</span>
             </p>
           </div>
-          <a href="#" id="trashIcon" class="trashIcon"><img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/trashcan.png"></a>
+          <button type="button" class="btn trashIcon" id="trashIcon" aria-label="Close">
+          <span>&times;</span>
+          </button>
+        </div>
+        <!-- end of item -->
+        <!-- start single item -->
+        <div class="cartItem d-flex justify-content-between text-capitalize">
+          <img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/globe_icon.png" class="cart-image" id="item-img" alt="">
+          <div class="item-text">
+            <p id="cart-item-title">cart item
+              <br>
+              <span>$</span>
+              <span id="cart-item-price">14.99</span>
+            </p>
+          </div>
+          <button type="button" class="btn trashIcon" id="trashIcon" aria-label="Close">
+          <span>&times;</span>
+          </button>
+        </div>
+        <!-- end of item -->
+        <!-- start single item -->
+        <div class="cartItem d-flex justify-content-between text-capitalize">
+          <img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/globe_icon.png" class="cart-image" id="item-img" alt="">
+          <div class="item-text">
+            <p id="cart-item-title">cart item
+              <br>
+              <span>$</span>
+              <span id="cart-item-price">14.99</span>
+            </p>
+          </div>
+          <button type="button" class="btn trashIcon" id="trashIcon" aria-label="Close">
+          <span>&times;</span>
+          </button>
         </div>
         <!-- end of item -->
         <!-- start totals -->
         <div class="cartTotal d-flex justify-content-around text-capitalize margin-top-5">
           <h5>total</h5>
-          <h5><strong id="cart-total" class="bold text">10.00</strong></h5>
+          <h5><strong id="cart-total" class="bold text">$10.00</strong></h5>
         </div>
         <!-- end totals -->
         <!-- start fold-out buttons -->
         <div class="cart-buttons-container d-flex justify-content-between">
-          <a href="#" id="clear-cart" class="btn btn-black text-uppercase">clear cart</a>
-          <a href="#" id="clear-cart" class="btn btn-red text-uppercase">checkout</a>
+          <a href="#" id="clear-cart" class="btn text-uppercase clear-cart">clear cart</a>
+          <a href="#" id="clear-cart" class="btn text-uppercase clear-cart">checkout</a>
         </div>
         <!-- end fold-out buttons -->
       </div>
@@ -159,26 +199,28 @@
   </section>
   <!-- end of Main Content area -->
 
+
   <!-- slider container begin -->
   <section class="view-area py-5" id="view-area">
     <div class="container align-items-center">
       <div class="row max-height justify-content-center align-items-center">
         <div class="col-10 md-6 my-0 mx-auto text-center">
           <!-- start slider selected viewport -->
-          <div class="slider-for mx-auto">
-            <div><img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/panda.jpeg" alt="panda" style="height: 30vw; width: auto;"></div>
-            <div><img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/PigMan.jpeg" alt="pig-man" style="height: 30vw; width: auto;"></div>
-            <div><img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/SantaCruz.jpeg" alt="Santa Cruz classic" style="height: 30vw; width: auto;"></div>
-            <div><img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/skull.jpeg" alt="Skull" style="height: 30vw; width: auto;"></div>
+          <div class="slider-for">
+            <div><img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/large plastic coke bottle.jpeg" alt="coke plastic bottle" style="height: 30vw; width: auto;"></div>
+            <div><img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/coke bottle.jpeg" alt="coke glass bottle" style="height: 30vw; width: auto;"></div>
+            <div><img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/coke can.jpeg" alt="coke can" style="height: 30vw; width: auto;"></div>
+            <div><img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/jaffa glass bottle.jpeg" alt="jaffa glass bottle" style="height: 30vw; width: auto;"></div>
+            <div><img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/jaffa plastic bottle.png" alt="jaffa plastic bottle" style="height: 30vw; width: auto;"></div>
           </div>
           <!-- end slider selected viewport -->
           <!-- start slider alternatives content -->
-          <div class="slider-nav mx-auto">
-            <div><img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/panda.jpeg" alt="panda" style="height: 70px; width: auto;"></div>
-            <div><img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/PigMan.jpeg" alt="pig-man"
-              style="height: 70px; width: auto;"></div>
-            <div><img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/SantaCruz.jpeg" alt="Santa Cruz classic" style="height: 70px; width: auto;"></div>
-            <div><img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/skull.jpeg" alt="Skull" style="height: 70px; width: auto;"></div>
+          <div class="slider-nav">
+            <div><img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/large plastic coke bottle.jpeg" alt="coke plastic bottle" style="height: 20vw; width: auto;"></div>
+            <div><img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/coke bottle.jpeg" alt="coke glass bottle" style="height: 20vw; width: auto;"></div>
+            <div><img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/coke can.jpeg" alt="coke can" style="height: 20vw; width: auto;"></div>
+            <div><img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/jaffa glass bottle.jpeg" alt="jaffa glass bottle" style="height: 20vw; width: auto;"></div>
+            <div><img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/jaffa plastic bottle.png" alt="jaffa plastic bottle" style="height: 20vw; width: auto;"></div>
           </div>
           <!-- end slider alternatives content -->
         </div>
@@ -192,8 +234,8 @@
   <!-- Footer area -->
   <footer>
     <div class="container-fluid">
-      <div class="justify-content-center align-items-center col-md-6 footer py-4">
-        <h4 class="col-10 md-6 my-0 mx-auto text-center">TEST FOOTER TEXT</h4>
+      <div class=" d-flex flex-stretch footer">
+        <h4 class="col-10 md-6 my-0 mx-auto text-center"><img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/sprouting_plants.jpeg" alt="sprouts" style="height: auto; width: 100%;"></h4>
       </div>
     </div>
   </footer>
@@ -208,16 +250,29 @@
       /* Set up and starting scanner */
       function startScanner() {
           Quagga.init({
+              numberOfWorkers: 2,
+              locate: true,
               inputStream: {
                   name: "Live",
                   type: "LiveStream",
-                  numberOfWorkers: 1,
                   target: document.querySelector('#scanner-container'),
                   constraints: {
                       width: 400,
                       height: 300,
                       facingMode: "environment"
                   },
+              },
+              area: { // defines rectangle of the detection/localization area
+                top: "0%",    // top offset
+                right: "0%",  // right offset
+                left: "0%",   // left offset
+                bottom: "0%"  // bottom offset
+              },
+              frequency: 1,
+              singleChannel: false, // used for debugging wrong results
+              locator: {
+                halfSample: true,
+                patchSize: "large",
               },
               decoder: {
                   readers: [
@@ -244,7 +299,7 @@
                           showTransformedBox: true,
                           showBB: true
                       }
-                  }
+                  },
               },
 
           },
@@ -287,10 +342,11 @@
               }
           });
 
-          /* Barcode is found */
+          /* When Barcode is found */
           Quagga.onDetected(function (result) {
               console.log("Barcode detected and processed : [" + result.codeResult.code + "]", result);
-
+              Quagga.stop();
+              _scannerIsRunning=false;
           });
       }
 
@@ -334,8 +390,9 @@
 <script type="text/javascript" src="/Users/matthewbelway/CodeBootcamp/Shop Demo/Necessary Files/slick.min.js"></script>
 
 
-
+<!-- slick slider carousel -->
 <script type="text/javascript">
+// selection window above
 $(document).ready(function(){
   $('.slider-for').slick({
 slidesToShow: 1,
@@ -344,8 +401,9 @@ arrows: false,
 fade: true,
 asNavFor: '.slider-nav'
 });
+// option windows below
 $('.slider-nav').slick({
-slidesToShow: 2,
+slidesToShow: 3,
 slidesToScroll: 1,
 asNavFor: '.slider-for',
 dots: true,
@@ -362,6 +420,11 @@ document.getElementById("cart-info").addEventListener("click", function() {
   cart.classList.toggle("show-cart");
   console.log(cart);
 })
+</script>
+
+<!-- cart add, remove, count -->
+<script>
+
 </script>
 
 </body>
