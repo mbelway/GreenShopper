@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="stylesheet" type="text/css" href="StyleSheet1.css">
+  <script src="/Users/matthewbelway/CodeBootcamp/Shop Demo/Demo_GreenShopper.js"></script>
+
+<!-- script for the quaggaJS API -->
+  <script src="https://cdn.rawgit.com/serratus/quaggaJS/0420d5e0/dist/quagga.min.js"></script>
+
+<!-- bootstrap link -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+  <title>Green Shopper Demo</title>
+
+  <style>
+        /* In order to place the QuaggaJS tracking correctly */
+        canvas.drawing, canvas.drawingBuffer {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+  <div class="grid-container">
+
+    <div id="Header" class="header">
+
+      <div class="logo">
+        <img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/globe_icon.png">
+      </div>
+
+      <nav class="navBar">
+        <div class="topnav" id="myTopnav">
+          <a href="#home" class="active">Home</a>
+          <a href="#news">News</a>
+          <a href="#contact">Contact</a>
+          <a href="#about">About</a>
+          <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+            <img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/hamburger.png" class="collapseIcon">
+          </a>
+        </div>
+      </nav>
+
+      <!--       cart button and items   -->
+      <div id="cartIcon" class="cartIcon">
+        <img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/shoppingCart.png">
+        <p class="cartText">
+          <span id='itemCount'>4</span>
+          items - $
+          <span class="itemTotal">
+            12.00
+          </span>
+        </p>
+      </div>
+
+    </div>
+
+
+    <div class="main">MAIN CONTENT
+
+      <!--    cart fold out screen styling / hides behind Main body  -->
+      <div class="cart" id="cart">
+
+        <!-- single item -->
+        <div class="cartItem d-flex justify-content-between text-capitalize">
+          <img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/globe_icon.png" class="image-fluid" id="item-img" alt="">
+          <div class="item-text">
+            <p id="cart-item-title">cart item
+              <br>
+            <span>$</span>
+            <span id="cart-item-price">10.99</span>
+            </p>
+          </div>
+          <a href="#" id="trashIcon" class="trashIcon"><img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/trashcan.png"></a>
+        </div>
+        <!-- end of first item -->
+
+        <div class="cartItem d-flex justify-content-between text-capitalize">
+          <img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/globe_icon.png" class="image-fluid" id="item-img" alt="">
+          <div class="item-text">
+            <p id="cart-item-title">cart item
+              <br>
+              <span>$</span>
+              <span id="cart-item-price">14.99</span>
+            </p>
+          </div>
+          <a href="#" id="trashIcon" class="trashIcon"><img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/trashcan.png"></a>
+        </div>
+        <!-- end of second cart item -->
+
+        <div class="cartTotal d-flex justify-content-around text-capitalize margin-top-5">
+          <h5>total</h5>
+          <h5><strong id="cart-total" class="bold text">10.00</strong></h5>
+        </div>
+        <!-- end of total -->
+        <!-- cart buttons -->
+        <div class="cart-buttons-container d-flex justify-content-between">
+          <a href="#" id="clear-cart" class="btn btn-black text-uppercase">clear cart</a>
+          <a href="#" id="clear-cart" class="btn btn-red text-uppercase">checkout</a>
+        </div>
+      </div>
+      <!--   end of cart fold out screen  -->
+
+
+
+      <!--    Begin Main Content   -->
+      <div class="main text">
+        <!-- Div to show the scanner -->
+        <div id="scanner-container"></div>
+        <input type="button" id="btn" value="Start/Stop the scanner" />
+
+        <!-- Include the image-diff library -->
+        <script src="quagga.min.js"></script>
+
+        <script>
+            var _scannerIsRunning = false;
+
+            function startScanner() {
+                Quagga.init({
+                    inputStream: {
+                        name: "Live",
+                        type: "LiveStream",
+                        target: document.querySelector('#scanner-container'),
+                        constraints: {
+                            width: 480,
+                            height: 320,
+                            facingMode: "environment"
+                        },
+                    },
+                    decoder: {
+                        readers: [
+                            //"code_128_reader",
+                            "ean_reader",
+                            //"ean_8_reader",
+                            //"code_39_reader",
+                            //"code_39_vin_reader",
+                            //"codabar_reader",
+                            //"upc_reader",
+                            //"upc_e_reader",
+                            //"i2of5_reader"
+                        ],
+                        debug: {
+                            showCanvas: true,
+                            showPatches: true,
+                            showFoundPatches: true,
+                            showSkeleton: true,
+                            showLabels: true,
+                            showPatchLabels: true,
+                            showRemainingPatchLabels: true,
+                            boxFromPatches: {
+                                showTransformed: true,
+                                showTransformedBox: true,
+                                showBB: true
+                            }
+                        }
+                    },
+
+                }, function (err) {
+                    if (err) {
+                        console.log(err);
+                        return
+                    }
+
+                    console.log("Initialization finished. Ready to start");
+                    Quagga.start();
+
+                    // Set flag to is running
+                    _scannerIsRunning = true;
+                });
+
+                Quagga.onProcessed(function (result) {
+                    var drawingCtx = Quagga.canvas.ctx.overlay,
+                    drawingCanvas = Quagga.canvas.dom.overlay;
+
+                    if (result) {
+                        if (result.boxes) {
+                            drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")), parseInt(drawingCanvas.getAttribute("height")));
+                            result.boxes.filter(function (box) {
+                                return box !== result.box;
+                            }).forEach(function (box) {
+                                Quagga.ImageDebug.drawPath(box, { x: 0, y: 1 }, drawingCtx, { color: "green", lineWidth: 2 });
+                            });
+                        }
+
+                        if (result.box) {
+                            Quagga.ImageDebug.drawPath(result.box, { x: 0, y: 1 }, drawingCtx, { color: "#00F", lineWidth: 2 });
+                        }
+
+                        if (result.codeResult && result.codeResult.code) {
+                            Quagga.ImageDebug.drawPath(result.line, { x: 'x', y: 'y' }, drawingCtx, { color: 'red', lineWidth: 3 });
+                        }
+                    }
+                });
+
+
+                Quagga.onDetected(function (result) {
+                    console.log("Barcode detected and processed : [" + result.codeResult.code + "]", result);
+                });
+            }
+
+
+            // Start/stop scanner
+            document.getElementById("btn").addEventListener("click", function () {
+                if (_scannerIsRunning) {
+                    Quagga.stop();
+                    // Added code to stop scanner
+                    _scannerIsRunning=false;
+                } else {
+                    startScanner();
+                }
+            }, false);
+        </script>
+      </div>
+    </div>
+      <!--   END SCANNER -->
+
+    </div>
+
+
+    <div class="footer">
+      <div class="contactInfo">
+        <p>Green Shopper Oy
+        <br>Email:
+          <a href="mailto:someone@example.com">
+            info@greenshop.com</a>
+        <br>0451234567</p>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- Drag and drop HTML5
+<style>
+#dropBox {
+  width: 80%;
+  height: 10%;
+  margin-top: 20px;
+  border: 1px solid black;
+}
+</style>
+
+<script>
+function allowDrop(ev) {
+  ev.preventDefault();
+}
+
+function drag(ev) {
+  ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+  ev.preventDefault();
+  var data = ev.dataTransfer.getData("text");
+  ev.target.appendChild(document.getElementById(data));
+}
+</script>
+-->
+
+  <!-- Script for toggling the menu bar -->
+  <script>
+    function myFunction() {
+      var x = document.getElementById("myTopnav");
+      if (x.className === "topnav") {
+        x.className += " responsive";
+      } else {
+        x.className = "topnav";
+      }
+    }
+  </script>
+
+  <!-- Script for toggling the cart -->
+  <script>
+    document.getElementById("cartIcon").addEventListener("click", function() {
+      const cart = document.getElementById("cart");
+      cart.classList.toggle("show-cart");
+      console.log(cart);
+    })
+  </script>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  <script src="Demo_GreenShopper.js"></script>
+      </body>
+
+      </html>
