@@ -1,10 +1,23 @@
+.body {
+  background-color: lightyellow;
+}
 
 /* -----    Navbar content ----- */
+.navbar-toggler {
+  border: none !important;
+  padding: 5px !important;
+  margin: 0px;
+  border-radius: 6px !important;
+}
+.navbar-toggler:hover {
+  background-color: lightgrey;
+}
 
 .cart-info {
-  border: 2px solid black;
+  border: none;
   border-radius: 6px;
-  padding: 5px;
+  padding: 10px;
+  align-self: center;
 }
 
 .cart-info:hover {
@@ -16,6 +29,33 @@
 
 .item-count {
 
+}
+
+/* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
 }
 
 
@@ -67,6 +107,7 @@
 }
 
 /*   Slick styling */
+
 .slider-for img {
   margin: 0 auto;
 }
@@ -97,3 +138,14 @@
     top: -20px;
     left: 20px;
 }​
+
+/* QuaggaJS scanner */
+#scanner-container {
+  width: 100%;
+  height: auto;
+}
+
+.modal-backdrop
+{
+  opacity:0.85 !important;
+}
