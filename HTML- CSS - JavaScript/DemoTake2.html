@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- CSS style sheet -->
-  <link rel="stylesheet" type="text/css" href="/Users/matthewbelway/CodeBootcamp/Shop Demo/HTML, CSS & JavaScript/StyleSheet2.css" />
+  <link rel="stylesheet" type="text/css" href="StyleSheet2.css" />
 
   <!-- For Bootstrap -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -51,7 +51,7 @@
 
   <!-- Slick carousel stylesheet -->
   <link rel="stylesheet" type="text/css" href="../slick-1.8.1/slick/slick.css" />
-  <link rel="stylesheet" type="text/css" href="../slick-1.8.1/slick/slick-theme.css" />
+  <link rel="stylesheet" type="text/css" href="../slick-1.8.1/slick/slick-theme.css">
 
 </head>
 
@@ -66,7 +66,7 @@
 
         <div id="cart-info" class="nav-info cart-info d-flex mr-3">
           <span class="cart-info-icon">
-            <img src="../icons/dripicons-master/SVG/cart.svg" alt="cart image" style="width: 2rem;" class="cart-img mr-2">
+            <img src="../icons/cart.svg" alt="cart image" style="width: 2rem;" class="cart-img mr-2">
           </span>
           <div class="mb-0">
             <span class="badge badge-light" id="totalItems"></span>
@@ -76,7 +76,7 @@
       </div>
 
       <button class="navbar-toggler mr-auto" type="button" data-toggle="collapse" aria-expanded="false" data-target="#navbarNavDropdown">
-        <img src="../icons/dripicons-master/SVG/menu.svg" style="width: 35px;">
+        <img src="../icons/menu.svg" style="width: 35px;">
       </button>
       <div class="collapse navbar-collapse order-3 order-lg-2" id="navbarNavDropdown">
         <ul class="navbar-nav ml-3 mt-3">
@@ -106,7 +106,7 @@
     <div class="col-10 text-center mt-5">
 
       <!-- Scan modal button -->
-      <button type="button" class="btn btn-success" id="scanItem" data-toggle="modal" data-target="#scannerModal"><img src="../icons/dripicons-master/SVG/camcorder.svg" style="width: 30px;"><br>
+      <button type="button" class="btn btn-success" id="scanItem" data-toggle="modal" data-target="#scannerModal"><img src="../icons/camcorder.svg" style="width: 30px;"><br>
         Start Scan
       </button>
       <!-- Modal container -->
@@ -448,9 +448,9 @@
           // add plus and delete button
           +
           "<div><button class='btn btn-link btn-sm plus-item' data-name='" +
-          cartArray[i].name + "'><img src='/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/dripicons-master/SVG/chevron-up.svg' style='width: 15px;'></button>" +
+          cartArray[i].name + "'><img src='../icons/chevron-up.svg' style='width: 15px;'></button>" +
           " <button class='btn btn-link btn-sm delete-item' data-name='" +
-          cartArray[i].name + "'><img src='/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/dripicons-master/SVG/chevron-down.svg' style='width: 15px;'></button></div>" +
+          cartArray[i].name + "'><img src='../icons/chevron-down.svg' style='width: 15px;'></button></div>" +
           "</li>"
       }
       $("#showCart").html(output);
