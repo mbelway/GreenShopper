@@ -13,10 +13,12 @@
   background-color: lightgrey;
 }
 
+
+
 .cart-info {
   border: none;
   border-radius: 6px;
-  padding: 10px;
+  padding: 7px;
   align-self: center;
 }
 
@@ -88,12 +90,11 @@
 .slider-for img {
   margin: 0 auto;
   border-radius: 70px;
-  border: 2pt solid grey !important;
+  border: 2pt solid white !important;
 }
 
 .slider-for img:hover {
-  border: 2pt solid black !important;
-  opacity: 0.75;
+  border: 2pt solid grey !important;
 }
 
 }
