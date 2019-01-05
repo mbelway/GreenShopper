@@ -139,7 +139,8 @@
     <div class="cart" id="cart">
 
       <!-- start cart items -->
-      <div class="cartItem d-flex justify-content-around text-capitalize">
+      <div class="cartItem d-flex flex-col justify-content-around text-capitalize">
+
         <ul class="list-group" id="showCart">
         </ul>
 
@@ -159,7 +160,7 @@
 
       <!-- start cart price totals -->
 
-      <div class="totalCart d-flex justify-content-center text-capitalize mx-5"><b>Total: $<span id="totalCart"></span></b></div>
+      <div class="totalCart d-flex justify-content-center text-capitalize mx-5 mt-2"><b>Total: $<span id="totalCart"></span></b></div>
 
       <!-- <div class="cartTotal d-flex justify-content-around text-capitalize margin-top-5">
         <h5>total</h5>
@@ -167,9 +168,11 @@
       </div> -->
 
       <!-- start clear & checkout buttons -->
-      <div class="cart-buttons-container d-flex justify-content-between">
-        <a href="#" id="clearCart" class="btn text-uppercase clearCart">clear cart</a>
-        <a href="#" id="checkOut" class="btn text-uppercase checkOut">checkout</a>
+      <div class="cart-buttons-container d-flex justify-content-center mt-3">
+        <button class="clearCart text-uppercase mx-auto" id="clearCart">Clear Cart</button>
+        <button class="checkOut text-uppercase mx-auto" id="checkOut">Check Out</button>
+        <!-- <a href="#" id="clearCart" class="btn text-uppercase clearCart">clear cart</a> -->
+        <!-- <a href="#" id="checkOut" class="btn text-uppercase checkOut">checkout</a> -->
       </div>
     </div>
 
@@ -440,7 +443,7 @@
       var cartArray = shoppingCart.listCart();
       var output = "";
       for (var i in cartArray) {
-        output += "<li class='list-group-item'>" +
+        output += "<li class='list-group-item list-group-item-action'>" +
           cartArray[i].name +
           " - " + cartArray[i].count +
           " @ $" + cartArray[i].price +
