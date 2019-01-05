@@ -1,5 +1,5 @@
 .body {
-  background-color: lightyellow;
+  background-color: none;
 }
 
 /* -----    Navbar content ----- */
@@ -24,38 +24,15 @@
   background-color: lightgrey;
 }
 
+.badge:hover {
+  color: red;
+}
+
 .cart-info-icon {
 }
 
 .item-count {
 
-}
-
-/* Tooltip container */
-.tooltip {
-  position: relative;
-  display: inline-block;
-  border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
-}
-
-/* Tooltip text */
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 120px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  padding: 5px 0;
-  border-radius: 6px;
-
-  /* Position the tooltip text - see examples below! */
-  position: absolute;
-  z-index: 1;
-}
-
-/* Show the tooltip text when you mouse over the tooltip container */
-.tooltip:hover .tooltiptext {
-  visibility: visible;
 }
 
 
@@ -110,36 +87,27 @@
 
 .slider-for img {
   margin: 0 auto;
+  border-radius: 70px;
+  border: 2pt solid grey !important;
 }
-.slider-nav img {
+
+.slider-for img:hover {
+  border: 2pt solid black !important;
+  opacity: 0.75;
+}
+
+}
+.slider-nav img
+{
   margin: 0 auto;
 }
 
-
-.ribbon {
-  -webkit-transform: rotate(-45deg);
-     -moz-transform: rotate(-45deg);
-      -ms-transform: rotate(-45deg);
-       -o-transform: rotate(-45deg);
-          transform: rotate(-45deg);
-    border: 25px solid transparent;
-    border-top: 25px solid #757575;
-    position: absolute;
-    bottom: 20px;
-    right: -50px;
-    padding: 0 10px;
-    width: 120px;
-    color: black;
-    font-family: sans-serif;
-    size: 11px;
+.slider-nav .slick-slide img:hover {
+  opacity: .6 !important;
 }
-.ribbon .txt {
-    position: absolute;
-    top: -20px;
-    left: 20px;
-}​
 
 /* QuaggaJS scanner */
+
 #scanner-container {
   width: 100%;
   height: auto;

@@ -48,32 +48,34 @@
   </style>
 
   <!-- Slick carousel stylesheet -->
-  <link rel="stylesheet" type="text/css" href="/Users/matthewbelway/CodeBootcamp/Shop Demo/slick-1.8.1/slick/slick.css" />
-  <link rel="stylesheet" type="text/css" href="/Users/matthewbelway/CodeBootcamp/Shop Demo/slick-1.8.1/slick/slick-theme.css" />
+  <link rel="stylesheet" type="text/css" href="../slick-1.8.1/slick/slick.css" />
+  <link rel="stylesheet" type="text/css" href="../slick-1.8.1/slick/slick-theme.css" />
 
 </head>
 
 
 <body class="body">
 
-  <header id="header" class="container-fluid">
-    <nav class="navbar fixed-top navbar-light bg-dark navbar-expand-lg navbar-template">
-      <a class="navbar-brand" href="#"><img src="../icons/globe_icon.png" alt="earth" style="width: 35px;"></a>
+  <div id="fullSite" class="container-fluid">
+    <nav class="navbar fixed-top navbar-light bg-dark navbar-expand-lg navbar-template row">
+      <a class="navbar-brand ml-3 mr-2" href="#"><img src="../icons/globe_icon.png" alt="earth" style="width: 35px;"></a>
+
       <div class="d-flex flex-row order-2 order-lg-3 ml-auto">
-        <div id="cart-info" class="nav-info cart-info d-flex">
+        <div id="cart-info" class="nav-info cart-info d-flex mr-3">
           <span class="cart-info-icon">
-            <img src="../icons/shoppingCart.png" alt="cart image" style="width: 1.5rem;" class="cart-img mr-2">
+            <img src="../icons/dripicons-master/SVG/cart.svg" alt="cart image" style="width: 2rem;" class="cart-img mr-2">
           </span>
           <div class="mb-0">
-            <span class="badge badge-info">4</span>
+            <span class="badge badge-light">4</span>
           </div>
         </div>
       </div>
-      <button class="navbar-toggler mr-auto" type="button" data-toggle="collapse" data-target="#navbarNavDropdown">
-        <img src="../icons/hamburger.png" style="width: 35px;">
+
+      <button class="navbar-toggler mr-auto" type="button" data-toggle="collapse" aria-expanded="false" data-target="#navbarNavDropdown">
+        <img src="../icons/dripicons-master/SVG/menu.svg" style="width: 35px;">
       </button>
       <div class="collapse navbar-collapse order-3 order-lg-2" id="navbarNavDropdown">
-        <ul class="navbar-nav ml-auto">
+        <ul class="navbar-nav ml-3">
           <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="#">Features</a></li>
           <li class="nav-item"><a class="nav-link" href="#">Pricing</a></li>
@@ -88,137 +90,132 @@
         </ul>
       </div>
     </nav>
-  </header>
+  </div>
   <!-- End of Navigation Bar -->
 
 
 
   <!-- Begin Main Content Area -->
-  <section class="content-area py-5" id="content-area">
-    <div class="container-fluid align-items-center">
-      <div class="row max-height justify-content-center align-items-center">
-        <div class="col-10 mx-auto text-center">
+  <!-- <section class="content-area py-5" id="content-area">
+    <div class="container-fluid align-items-center"> -->
+  <div class="row max-height justify-content-center align-items-center my-5">
+    <div class="col-10 text-center mt-5">
 
-          <!-- Scan modal button -->
-          <button type="button" class="btn btn-primary" id="scanItem" data-toggle="modal" data-target="#scannerModal">
-            Start Scan
-          </button>
-          <!-- Modal container -->
-          <div class="modal fade" data-backdrop="static" id="scannerModal" tabindex="-1" role="dialog" aria-labelledby="scannerModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <!-- modal header items -->
-                <div class="modal-header">
-                  <h5 class="modal-title" id="scannerModalLabel">Modal Scanner</h5>
-                  <button type="button" class="close" id="modalClose" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <!-- Modal Scan Window -->
-                <div class="modal-body">
-                  <!-- scanner area -->
-                  <div id="scanner-container" class="viewport"></div>
-                </div>
-                <!-- modal footer items -->
-                <!-- <div class="modal-footer justify-content-center">
+      <!-- Scan modal button -->
+      <button type="button" class="btn btn-success" id="scanItem" data-toggle="modal" data-target="#scannerModal"><img src="../icons/dripicons-master/SVG/camcorder.svg" style="width: 30px;"><br>
+        Start Scan
+      </button>
+      <!-- Modal container -->
+      <div class="modal fade" data-backdrop="static" id="scannerModal" tabindex="-1" role="dialog" aria-labelledby="scannerModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <!-- modal header items -->
+            <div class="modal-header">
+              <h5 class="modal-title" id="scannerModalLabel">Modal Scanner</h5>
+              <button type="button" class="close" id="modalClose" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <!-- Modal Scan Window -->
+            <div class="modal-body">
+              <!-- scanner area -->
+              <div id="scanner-container" class="viewport"></div>
+            </div>
+            <!-- modal footer items -->
+            <!-- <div class="modal-footer justify-content-center">
                   <button type="button" class="btn btn-primary" id="scanbtn">Start/Stop Scan</button>
                 </div> -->
-              </div>
-            </div>
           </div>
-          <!-- End modal container -->
         </div>
       </div>
-
-
-      <!-- start fold-out cart viewport -->
-      <div class="cart" id="cart">
-        <!-- start single item -->
-        <div class="cartItem d-flex justify-content-between text-capitalize">
-          <img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/globe_icon.png" class="cart-image" id="item-img" alt="">
-          <div class="item-text">
-            <p id="cart-item-title">cart item
-              <br>
-              <span>$</span>
-              <span id="cart-item-price" class="cart-item-price">10.99</span>
-            </p>
-          </div>
-          <button type="button" class="btn trashIcon" id="trashIcon" aria-label="Close">
-            <span>&times;</span>
-          </button>
-        </div>
-        <!-- end item -->
-        <!-- start single item -->
-        <div class="cartItem d-flex justify-content-between text-capitalize">
-          <img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/globe_icon.png" class="cart-image" id="item-img" alt="">
-          <div class="item-text">
-            <p id="cart-item-title">cart item
-              <br>
-              <span>$</span>
-              <span id="cart-item-price">14.99</span>
-            </p>
-          </div>
-          <button type="button" class="btn trashIcon" id="trashIcon" aria-label="Close">
-            <span>&times;</span>
-          </button>
-        </div>
-        <!-- end of item -->
-        <!-- start single item -->
-        <div class="cartItem d-flex justify-content-between text-capitalize">
-          <img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/globe_icon.png" class="cart-image" id="item-img" alt="">
-          <div class="item-text">
-            <p id="cart-item-title">cart item
-              <br>
-              <span>$</span>
-              <span id="cart-item-price">14.99</span>
-            </p>
-          </div>
-          <button type="button" class="btn trashIcon" id="trashIcon" aria-label="Close">
-            <span>&times;</span>
-          </button>
-        </div>
-        <!-- end of item -->
-        <!-- start single item -->
-        <div class="cartItem d-flex justify-content-between text-capitalize">
-          <img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/globe_icon.png" class="cart-image" id="item-img" alt="">
-          <div class="item-text">
-            <p id="cart-item-title">cart item
-              <br>
-              <span>$</span>
-              <span id="cart-item-price">14.99</span>
-            </p>
-          </div>
-          <button type="button" class="btn trashIcon" id="trashIcon" aria-label="Close">
-            <span>&times;</span>
-          </button>
-        </div>
-        <!-- end of item -->
-        <!-- start totals -->
-        <div class="cartTotal d-flex justify-content-around text-capitalize margin-top-5">
-          <h5>total</h5>
-          <h5><strong id="cart-total" class="bold text">$10.00</strong></h5>
-        </div>
-        <!-- end totals -->
-        <!-- start fold-out buttons -->
-        <div class="cart-buttons-container d-flex justify-content-between">
-          <a href="#" id="clear-cart" class="btn text-uppercase clear-cart">clear cart</a>
-          <a href="#" id="clear-cart" class="btn text-uppercase clear-cart">checkout</a>
-        </div>
-        <!-- end fold-out buttons -->
-      </div>
-      <!-- end of fold-out cart list -->
+      <!-- End modal container -->
     </div>
-  <!-- </section> -->
-  <!-- end of Main Content area -->
+    <!-- start fold-out cart viewport -->
+    <div class="cart" id="cart">
+      <!-- start single item -->
+      <div class="cartItem d-flex justify-content-between text-capitalize">
+        <img src="../icons/globe_icon.png" class="cart-image" id="item-img" alt="">
+        <div class="item-text">
+          <p id="cart-item-title">cart item
+            <br>
+            <span>$</span>
+            <span id="cart-item-price" class="cart-item-price">10.99</span>
+          </p>
+        </div>
+        <button type="button" class="btn trashIcon" id="trashIcon" aria-label="Close">
+          <span>&times;</span>
+        </button>
+      </div>
+      <!-- end item -->
+      <!-- start single item -->
+      <div class="cartItem d-flex justify-content-between text-capitalize">
+        <img src="../icons/globe_icon.png" class="cart-image" id="item-img" alt="">
+        <div class="item-text">
+          <p id="cart-item-title">cart item
+            <br>
+            <span>$</span>
+            <span id="cart-item-price">14.99</span>
+          </p>
+        </div>
+        <button type="button" class="btn trashIcon" id="trashIcon" aria-label="Close">
+          <span>&times;</span>
+        </button>
+      </div>
+      <!-- end of item -->
+      <!-- start single item -->
+      <div class="cartItem d-flex justify-content-between text-capitalize">
+        <img src="../icons/globe_icon.png" class="cart-image" id="item-img" alt="">
+        <div class="item-text">
+          <p id="cart-item-title">cart item
+            <br>
+            <span>$</span>
+            <span id="cart-item-price">14.99</span>
+          </p>
+        </div>
+        <button type="button" class="btn trashIcon" id="trashIcon" aria-label="Close">
+          <span>&times;</span>
+        </button>
+      </div>
+      <!-- end of item -->
+      <!-- start single item -->
+      <div class="cartItem d-flex justify-content-between text-capitalize">
+        <img src="../icons/globe_icon.png" class="cart-image" id="item-img" alt="">
+        <div class="item-text">
+          <p id="cart-item-title">cart item
+            <br>
+            <span>$</span>
+            <span id="cart-item-price">14.99</span>
+          </p>
+        </div>
+        <button type="button" class="btn trashIcon" id="trashIcon" aria-label="Close">
+          <span>&times;</span>
+        </button>
+      </div>
+      <!-- end of item -->
+      <!-- start totals -->
+      <div class="cartTotal d-flex justify-content-around text-capitalize margin-top-5">
+        <h5>total</h5>
+        <h5><strong id="cart-total" class="bold text">$10.00</strong></h5>
+      </div>
+      <!-- end totals -->
+      <!-- start fold-out buttons -->
+      <div class="cart-buttons-container d-flex justify-content-between">
+        <a href="#" id="clear-cart" class="btn text-uppercase clear-cart">clear cart</a>
+        <a href="#" id="clear-cart" class="btn text-uppercase clear-cart">checkout</a>
+      </div>
+      <!-- end fold-out buttons -->
+    </div>
+    <!-- end of Main Content area -->
+  </div>
 
 
   <!-- slider container begin -->
-  <section class="view-area py-5" id="view-area">
-    <div class="container align-items-center">
-      <div class="row max-height justify-content-center align-items-center">
-        <div class="col-10 md-6 my-0 mx-auto text-center">
+  <!-- <section class="view-area py-5" id="view-area">
+    <div class="container align-items-center"> -->
+      <div class="row">
+        <div class="col-10 align-middle mx-auto text-center">
           <!-- start slider selected viewport -->
-          <div class="slider-for slider-active" id="slider-for">
+          <div class="slider-for slider-active mb-5" id="slider-for">
             <!-- <a href="#" class="add" id="add" onclick="return alertFunction()" title="click to add to cart">
               <div>
                 <img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/large plastic coke bottle.jpeg" data-price="5.00" data-name="Coke plastic lg" style="height: 30vw; width: auto;">
@@ -247,7 +244,7 @@
           </div>
           <!-- end slider selected viewport -->
           <!-- start slider alternatives content -->
-          <div class="slider-nav" id="slider-nav">
+          <div class="slider-nav mt-0" id="slider-nav">
             <!-- <div>
               <img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/large plastic coke bottle.jpeg" alt="coke plastic bottle" style="height: 20vw; width: auto;">
             </div>
@@ -273,12 +270,8 @@
           <!-- end slider alternatives content -->
         </div>
       </div>
-    </div>
-  </section>
-  <div class="Test1 float-left" id="Test1">
-  </div>
-  <div class="Test2 float-right" id="Test2">
-  </div>
+    <!-- </div>
+  </section> -->
   <!-- slider container end -->
 
 
@@ -415,20 +408,24 @@
         }
       });
 
-      /* When Barcode is found */
 
+      /* When Barcode is detected */
       Quagga.onDetected(function(result) {
         var barCode = result.codeResult.code;
         console.log("Barcode detected and processed : [" + result.codeResult.code + "]", result);
         Quagga.stop();
+
         _scannerIsRunning = false;
         // insert fetch post here...
         function returnArray() {
           fetch('https://greenshopper.azurewebsites.net/api/Scanner/' + barCode)
             .then(resp => resp.json())
-            .then(response => console.log('Success: ', JSON.stringify(response)))
+            .then(response =>
+            console.log('Success: ', JSON.stringify(response)))
             .catch(error => console.error('Error: ', error));
+
         }
+        $('#scannerModal').modal('hide');
       })
     }
 
@@ -547,6 +544,7 @@
       alert("Added to cart");
       console.log("Item was triggered");
     }
+
   </script>
 
 
@@ -581,7 +579,7 @@
       $('.slider-nav').slick('unslick');
       let bottom = document.getElementById("slider-nav");
       let top = document.getElementById("slider-for");
-      let url = 'https://randomuser.me/api/?results=6';
+      let url = 'https://randomuser.me/api/?results=4';
       // fetch api
       fetch(url) // can also retrieve json file from server
         .then(function(resp) {
