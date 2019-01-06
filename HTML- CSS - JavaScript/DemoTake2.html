@@ -15,7 +15,7 @@
 
 
   <!-- script for the quaggaJS API -->
-  <script src="https://cdn.rawgit.com/serratus/quaggaJS/0420d5e0/dist/quagga.min.js"></script>
+  <!-- <script src="https://cdn.rawgit.com/serratus/quaggaJS/0420d5e0/dist/quagga.min.js"></script> -->
 
   <!-- script for jquery -->
   <!-- <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script> -->
@@ -141,7 +141,7 @@
       <!-- start cart items -->
       <div class="cartItem d-flex flex-col justify-content-around text-capitalize">
 
-        <ul class="list-group" id="showCart">
+        <ul class="showCart list-group" id="showCart">
         </ul>
 
         <!-- <img src="../icons/globe_icon.png" class="cart-image" id="item-img" alt="">
@@ -160,7 +160,7 @@
 
       <!-- start cart price totals -->
 
-      <div class="totalCart d-flex justify-content-center text-capitalize mx-5 mt-2"><b>Total: $<span id="totalCart"></span></b></div>
+      <div class="totalCart d-flex justify-content-around text-capitalize mx-5 mt-2"><b>Total: $<span id="totalCart"></span></b></div>
 
       <!-- <div class="cartTotal d-flex justify-content-around text-capitalize margin-top-5">
         <h5>total</h5>
@@ -168,7 +168,7 @@
       </div> -->
 
       <!-- start clear & checkout buttons -->
-      <div class="cart-buttons-container d-flex justify-content-center mt-3">
+      <div class="cart-buttons-container d-flex justify-content-around mt-3">
         <button class="clearCart text-uppercase mx-auto" id="clearCart">Clear Cart</button>
         <button class="checkOut text-uppercase mx-auto" id="checkOut">Check Out</button>
         <!-- <a href="#" id="clearCart" class="btn text-uppercase clearCart">clear cart</a> -->
@@ -186,22 +186,12 @@
         <div class="col-10 align-middle mx-auto text-center">
           <!-- start top slider dislay -->
           <div class="slider-for slider-active mb-5" id="slider-for">
-            <!-- <a href="#" class="add" id="add" onclick="return alertFunction()" title="click to add to cart">
-              <div>
-                <img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/jaffa plastic bottle.png" data-price="2.00" data-name="Jaffa plastic sm" style="height: 30vw; width: auto;">
-              </div>
-            </a> -->
           </div>
-          <!-- end top slider display -->
+
           <!-- start bottom display images -->
           <div class="slider-nav mt-0" id="slider-nav">
-            <!-- <div>
-              <img src="/Users/matthewbelway/CodeBootcamp/Shop Demo/icons/jaffa plastic bottle.png" alt="jaffa plastic bottle" style="height: 20vw; width: auto;">
-            </div> -->
           </div>
 
-
-          <!-- end slider alternatives content -->
         </div>
       </div>
     <!-- </div>
@@ -410,81 +400,6 @@
   <script type="text/javascript" src="/Users/matthewbelway/CodeBootcamp/Shop Demo/Necessary Files/slick.min.js"></script>
 
 
-
-
-  <script>
-//   ********** Everything CART related *******
-
-    // Cart fold-out
-    document.getElementById("cart-info").addEventListener("click", function() {
-      const cart = document.getElementById("cart");
-      cart.classList.toggle("show-cart");
-      // console.log(cart);
-    })
-
-    // adding items to cart by clicking *********
-    $(".add").click(function(event) {
-      event.preventDefault();
-      var name = $(this).attr("data-name");
-      var price = Number($(this).attr("data-price"));
-
-      shoppingCart.addItemToCart(name, price, 1);
-      displayCart();
-    });
-
-    // clear cart button *********
-    $("#clearCart").click(function(event) {
-      shoppingCart.clearCart();
-      displayCart();
-    });
-
-    // displaying items in the cart, buttons to add/subtract count *********
-    function displayCart() {
-      var cartArray = shoppingCart.listCart();
-      var output = "";
-      for (var i in cartArray) {
-        output += "<li class='list-group-item list-group-item-action'>" +
-          cartArray[i].name +
-          " - " + cartArray[i].count +
-          " @ $" + cartArray[i].price +
-          " = $" + cartArray[i].total
-          // add plus and delete button
-          +
-          "<div><button class='btn btn-link btn-sm plus-item' data-name='" +
-          cartArray[i].name + "'><img src='../icons/chevron-up.svg' style='width: 15px;'></button>" +
-          " <button class='btn btn-link btn-sm delete-item' data-name='" +
-          cartArray[i].name + "'><img src='../icons/chevron-down.svg' style='width: 15px;'></button></div>" +
-          "</li>"
-      }
-      $("#showCart").html(output);
-      $("#totalCart").html(shoppingCart.totalCost());
-      $("#totalItems").html(shoppingCart.countCart());
-    }
-    // remove items one at a time upon click *********
-    $("#showCart").on("click", ".delete-item", function(event) {
-      var name = $(this).attr("data-name");
-      shoppingCart.removeItemFromCart(name);
-      displayCart();
-    });
-    // add to item count one at a time upon click *********
-    $("#showCart").on("click", ".plus-item", function(event) {
-      var name = $(this).attr("data-name");
-      shoppingCart.addItemToCart(name);
-      displayCart();
-    });
-
-    displayCart();
-
-    // on-click, alert item added to cart
-    function alertFunction() {
-      alert("Added to cart");
-      console.log("Item was triggered");
-    }
-
-  </script>
-
-
-
   <!-- slick slider carousel -->
   <script type="text/javascript">
     // Top image display
@@ -517,25 +432,30 @@
       let url = 'https://randomuser.me/api/?results=4';
       fetch(url)
         .then(function(resp) {
-          console.log(resp);
+          // console.log(resp);
           return resp.json();
         })
         .then(function(data) {
           let users = data.results;
-          console.log(data.results);
+          // console.log(data.results);
           users.forEach(function(element) {
+
             let childDiv1 = document.createElement('div');
+
             let childDiv2 = document.createElement('div');
+
 
             let myImg1 = document.createElement('img');
             myImg1.src = element.picture.large;
-            myImg1.dataset.price = element.location.postcode; //update to price
-            myImg1.dataset.name = element.name.first
+            // myImg1.dataset.price = element.location.postcode; //update to price
+            // myImg1.dataset.name = element.name.first
+
             let myImg2 = document.createElement('img');
             myImg2.src = element.picture.medium;
 
+
             let myTag = document.createElement('a');
-            myTag.href = '#';
+            myTag.setAttribute('href',"#");
             myTag.addEventListener('click', alertFunction);
             myTag.className = 'add';
             myTag.id = 'add';
@@ -544,14 +464,16 @@
             //update to price
             myTag.dataset.name = element.name.first
 
-            childDiv1.appendChild(myImg1);
-            myTag.appendChild(childDiv1);
-            let newPics1 = top.appendChild(myTag);
-            // console.log(newPics1);
+            let image = childDiv1.appendChild(myImg1);
+            // console.log(div);
+            let div = myTag.appendChild(childDiv1);
+            // console.log(div);
+            let anchor = top.appendChild(myTag);
+            // console.log(anchor);
 
             childDiv2.appendChild(myImg2);
-            let newPics2 = bottom.appendChild(childDiv2);
-            // console.log(newPics2);
+            bottom.appendChild(childDiv2);
+
 
           })
           $('.slick-for').slick('slickAdd');
@@ -576,7 +498,85 @@
         .catch(function(err) {
           console.log(err);
         })
+
     });
+
+  </script>
+
+  <script>
+//   ********** Everything CART related *******
+
+    // Cart fold-out
+    document.getElementById("cart-info").addEventListener("click", function() {
+      const cart = document.getElementById("cart");
+      cart.classList.toggle("show-cart");
+      // console.log(cart);
+    })
+
+    // adding items to cart by clicking *********
+    $("#slider-for").on("click", "a.add", function(event) {
+    // $(".add").click(function(event) {
+      event.preventDefault();
+      var name = $(this).attr("data-name");
+      console.log(name);
+      var price = Number($(this).attr("data-price"));
+      console.log(price);
+
+      shoppingCart.addItemToCart(name, price, 1);
+      displayCart();
+    });
+
+
+    // clear cart button *********
+    $("#clearCart").click(function(event) {
+      shoppingCart.clearCart();
+      displayCart();
+    });
+
+    // displaying items in the cart, buttons to add/subtract count
+    function displayCart() {
+      var cartArray = shoppingCart.listCart();
+      console.log(cartArray);
+      var output = "";
+      for (var i in cartArray) {
+        output += "<li class='list-group-item list-group-item-action'>" +
+          cartArray[i].name +
+          ": " + cartArray[i].count +
+          ", $" + cartArray[i].total
+          // add plus and delete button
+          +
+          "<div><button class='btn btn-link btn-sm plus-item' data-name='" +
+          cartArray[i].name + "'><img src='../icons/chevron-up.svg' style='width: 15px;'></button>" +
+          " <button class='btn btn-link btn-sm delete-item' data-name='" +
+          cartArray[i].name + "'><img src='../icons/chevron-down.svg' style='width: 15px;'></button></div>" +
+          "</li>";
+          // console.log(output);
+      }
+      $("#showCart").html(output);
+      $("#totalCart").html(shoppingCart.totalCost());
+      $("#totalItems").html(shoppingCart.countCart());
+    }
+    // remove items one at a time upon click *********
+    $("#showCart").on("click", ".delete-item", function(event) {
+      var name = $(this).attr("data-name");
+      shoppingCart.removeItemFromCart(name);
+      displayCart();
+    });
+    // add to item count one at a time upon click *********
+    $("#showCart").on("click", ".plus-item", function(event) {
+      var name = $(this).attr("data-name");
+      shoppingCart.addItemToCart(name);
+      displayCart();
+    });
+
+    displayCart();
+
+    function alertFunction() {
+      alert("Added to cart");
+      console.log($(this).attr('data-name'));
+      console.log($(this).attr('data-price'));
+      console.log("Item was triggered");
+    }
 
   </script>
 
