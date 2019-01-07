@@ -214,6 +214,244 @@
   <script src="../Necessary Files/quagga.min.js"></script>
 
 
+  <!-- <script>
+    var _scannerIsRunning = false;
+
+    /* Set up and starting scanner */
+
+
+    function startScanner() {
+      Quagga.init({
+          numberOfWorkers: navigator.hardwareConcurrency,
+          locate: true,
+          inputStream: {
+            name: "Live",
+            type: "LiveStream",
+            target: document.querySelector('#scanner-container'),
+            constraints: {
+              width: 400,
+              height: 300,
+              facingMode: "environment"
+            },
+          },
+          area: { // defines rectangle of the detection/localization area
+            top: "0%", // top offset
+            right: "0%", // right offset
+            left: "0%", // left offset
+            bottom: "0%" // bottom offset
+          },
+          frequency: 10,
+          singleChannel: false, // used for debugging wrong results
+          locator: {
+            halfSample: true,
+            patchSize: "large",
+          },
+          decoder: {
+            readers: [
+              //"code_128_reader",
+              "ean_reader",
+              "ean_8_reader",
+              //"code_39_reader",
+              //"code_39_vin_reader",
+              //"codabar_reader",
+              "upc_reader",
+              //"upc_e_reader",
+              //"i2of5_reader"
+            ],
+            debug: {
+              showCanvas: true,
+              showPatches: true,
+              showFoundPatches: true,
+              showSkeleton: true,
+              showLabels: true,
+              showPatchLabels: true,
+              showRemainingPatchLabels: true,
+              boxFromPatches: {
+                showTransformed: true,
+                showTransformedBox: true,
+                showBB: true
+              }
+            },
+          },
+
+        },
+        function(err) {
+          if (err) {
+            console.log(err);
+            return
+          }
+
+          console.log("Initialization finished. Ready to start");
+
+          Quagga.start();
+
+          // Set flag to is running
+          _scannerIsRunning = true;
+
+        });
+
+      Quagga.onProcessed(function(result) {
+        var drawingCtx = Quagga.canvas.ctx.overlay,
+          drawingCanvas = Quagga.canvas.dom.overlay;
+
+        if (result) {
+          if (result.boxes) {
+            drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")), parseInt(drawingCanvas.getAttribute("height")));
+            result.boxes.filter(function(box) {
+              return box !== result.box;
+            }).forEach(function(box) {
+              Quagga.ImageDebug.drawPath(box, {
+                x: 0,
+                y: 1
+              }, drawingCtx, {
+                color: "green",
+                lineWidth: 2
+              });
+            });
+          }
+
+          if (result.box) {
+            Quagga.ImageDebug.drawPath(result.box, {
+              x: 0,
+              y: 1
+            }, drawingCtx, {
+              color: "#00F",
+              lineWidth: 2
+            });
+          }
+
+          if (result.codeResult && result.codeResult.code) {
+            Quagga.ImageDebug.drawPath(result.line, {
+              x: 'x',
+              y: 'y'
+            }, drawingCtx, {
+              color: 'red',
+              lineWidth: 3
+            });
+          }
+        }
+      });
+
+
+      /* When Barcode is detected */
+      Quagga.onDetected(function(result) {
+        var barCode = result.codeResult.code;
+        console.log("Barcode detected and processed : [" + result.codeResult.code + "]", result);
+        console.log(result.codeResult.code);
+        Quagga.stop();
+        _scannerIsRunning = false;
+        window.setTimeout(function(){
+          $('#scannerModal').modal('hide');}, 1000);
+
+        let bottom = document.getElementById("slider-nav");
+        let top = document.getElementById("slider-for");
+        fetch('https://greenshopper.azurewebsites.net/api/Scanner/' + barCode)
+        // .then(resp => resp.json())
+        // .then(response =>
+        // console.log('Success: ', JSON.stringify(response)));
+        .then(function(resp) {
+          // console.log(resp);
+          return resp.json();
+        })
+        .then(function(data) {
+          let users = data;
+          console.log(users);
+          users.forEach(function(element) {
+
+          let childDiv1 = document.createElement('div');
+          let childDiv2 = document.createElement('div');
+
+          let myImg1 = document.createElement('img');
+          myImg1.src = element.image;
+          let myImg2 = document.createElement('img');
+          myImg2.src = element.image;
+
+          let myTag = document.createElement('a');
+          myTag.setAttribute('href',"#");
+          myTag.addEventListener('click', alertFunction);
+          myTag.className = 'add';
+          myTag.id = 'add';
+          myTag.title = 'click to add to cart'
+          myTag.dataset.price = element.productPrice;
+          myTag.dataset.name = element.productName
+
+          let image = childDiv1.appendChild(myImg1);
+          let div = myTag.appendChild(childDiv1);
+          let anchor = top.appendChild(myTag);
+          console.log(anchor);
+
+          childDiv2.appendChild(myImg2);
+          bottom.appendChild(childDiv2);
+        })
+      })
+      })
+    }
+
+
+    /* Turn off scanner if modal is closed before scanner is manually stopped */
+    document.getElementById("modalClose").addEventListener("click", function() {
+        if (_scannerIsRunning) {
+          Quagga.stop();
+          _scannerIsRunning = false;
+        } else {}
+      },
+      false);
+
+    /* Starting and stopping the scanner */
+    document.getElementById("scanItem").addEventListener("click", function() {
+        if (_scannerIsRunning) {
+          Quagga.stop();
+          // Added code to stop scanner
+          _scannerIsRunning = false;
+        } else {
+          startScanner();
+        }
+      },
+      false);
+  </script> -->
+
+  <!--   END SCANNER -->
+
+  <!-- shoppingCart script -->
+  <!-- <script src="/Users/matthewbelway/CodeBootcamp/Demo Testing/shoppingCart.js"></script> -->
+  <script type="text/javascript" src="Demo_GreenShopper.js"></script>
+
+  <!-- For Bootstrap 4: jQuery first, then Popper.js and then Bootstrap JS-->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+  <!-- Requirements for Slick -->
+  <!-- <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script> -->
+  <script type="text/javascript" src="../Necessary Files/slick.min.js"></script>
+
+
+  <!-- slick slider carousel -->
+  <script type="text/javascript">
+    // Top image display
+    $(document).ready(function() {
+      $('.slider-for').slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: false,
+        fade: true,
+        asNavFor: '.slider-nav'
+      });
+      // Bottom display images
+      $('.slider-nav').slick({
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        asNavFor: '.slider-for',
+        dots: true,
+        centerMode: true,
+        focusOnSelect: true
+      });
+    });
+  </script>
+
   <script>
     var _scannerIsRunning = false;
 
@@ -337,23 +575,73 @@
       Quagga.onDetected(function(result) {
         var barCode = result.codeResult.code;
         console.log("Barcode detected and processed : [" + result.codeResult.code + "]", result);
+        console.log(result.codeResult.code);
         Quagga.stop();
-
         _scannerIsRunning = false;
-        // insert fetch post here...
-        function returnArray() {
-          fetch('https://greenshopper.azurewebsites.net/api/Scanner/' + barCode)
-            .then(resp => resp.json())
-            .then(response =>
-            console.log($('#opModal')),
-            console.log('Success: ', JSON.stringify(response)))
-            .catch(error => console.error('Error: ', error));
-
-        }
-        // console.log($('#opModal'))
         window.setTimeout(function(){
           $('#scannerModal').modal('hide');}, 1000);
-      // $('#scannerModal').modal('hide');
+
+        $('.slider-for').slick('unslick');
+        $('.slider-nav').slick('unslick');
+        let bottom = document.getElementById("slider-nav");
+        let top = document.getElementById("slider-for");
+        fetch('https://greenshopper.azurewebsites.net/api/Scanner/' + barCode)
+        // .then(resp => resp.json())
+        // .then(response =>
+        // console.log('Success: ', JSON.stringify(response)));
+        .then(function(resp) {
+          // console.log(resp);
+          return resp.json();
+        })
+        .then(function(data) {
+          let users = data;
+          console.log(users);
+          users.forEach(function(element) {
+
+          let childDiv1 = document.createElement('div');
+          let childDiv2 = document.createElement('div');
+
+          let myImg1 = document.createElement('img');
+          myImg1.src = element.image;
+          let myImg2 = document.createElement('img');
+          myImg2.src = element.image;
+
+          let myTag = document.createElement('a');
+          myTag.setAttribute('href',"#");
+          myTag.addEventListener('click', alertFunction);
+          myTag.className = 'add';
+          myTag.id = 'add';
+          myTag.title = 'click to add to cart'
+          myTag.dataset.price = element.productPrice;
+          myTag.dataset.name = element.productName
+
+          let image = childDiv1.appendChild(myImg1);
+          let div = myTag.appendChild(childDiv1);
+          let anchor = top.appendChild(myTag);
+          console.log(anchor);
+
+          childDiv2.appendChild(myImg2);
+          bottom.appendChild(childDiv2);
+        })
+        $('.slick-for').slick('slickAdd');
+        $('.slider-for').slick({
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          arrows: false,
+          fade: true,
+          asNavFor: '.slider-nav'
+        });
+        $('.slick-nav').slick('slickAdd');
+        $('.slider-nav').slick({
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          asNavFor: '.slider-for',
+          dots: true,
+          centerMode: true,
+          focusOnSelect: true
+        });
+
+      })
       })
     }
 
@@ -362,7 +650,6 @@
     document.getElementById("modalClose").addEventListener("click", function() {
         if (_scannerIsRunning) {
           Quagga.stop();
-          // Added code to stop scanner if modal is closed before scanner is stopped
           _scannerIsRunning = false;
         } else {}
       },
@@ -381,47 +668,6 @@
       false);
   </script>
 
-  <!--   END SCANNER -->
-
-  <!-- shoppingCart script -->
-  <!-- <script src="/Users/matthewbelway/CodeBootcamp/Demo Testing/shoppingCart.js"></script> -->
-  <script type="text/javascript" src="Demo_GreenShopper.js"></script>
-
-  <!-- For Bootstrap 4: jQuery first, then Popper.js and then Bootstrap JS-->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-
-  <!-- Requirements for Slick -->
-  <!-- <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-  <script type="text/javascript" src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script> -->
-  <script type="text/javascript" src="/Users/matthewbelway/CodeBootcamp/Shop Demo/Necessary Files/slick.min.js"></script>
-
-
-  <!-- slick slider carousel -->
-  <script type="text/javascript">
-    // Top image display
-    $(document).ready(function() {
-      $('.slider-for').slick({
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        arrows: false,
-        fade: true,
-        asNavFor: '.slider-nav'
-      });
-      // Bottom display images
-      $('.slider-nav').slick({
-        slidesToShow: 3,
-        slidesToScroll: 1,
-        asNavFor: '.slider-for',
-        dots: true,
-        centerMode: true,
-        focusOnSelect: true
-      });
-    });
-  </script>
 
   <script type="text/javascript">
     $(document).ready(function() {
@@ -518,9 +764,9 @@
     // $(".add").click(function(event) {
       event.preventDefault();
       var name = $(this).attr("data-name");
-      console.log(name);
+      // console.log(name);
       var price = Number($(this).attr("data-price"));
-      console.log(price);
+      // console.log(price);
 
       shoppingCart.addItemToCart(name, price, 1);
       displayCart();
@@ -536,7 +782,7 @@
     // displaying items in the cart, buttons to add/subtract count
     function displayCart() {
       var cartArray = shoppingCart.listCart();
-      console.log(cartArray);
+      // console.log(cartArray);
       var output = "";
       for (var i in cartArray) {
         output += "<li class='list-group-item list-group-item-action'>" +
@@ -573,8 +819,8 @@
 
     function alertFunction() {
       alert("Added to cart");
-      console.log($(this).attr('data-name'));
-      console.log($(this).attr('data-price'));
+      // console.log($(this).attr('data-name'));
+      // console.log($(this).attr('data-price'));
       console.log("Item was triggered");
     }
 
