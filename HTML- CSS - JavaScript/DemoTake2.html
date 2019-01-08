@@ -202,9 +202,11 @@
 
   <!-- Footer area -->
   <footer>
-    <div class="container-fluid">
-      <div class=" d-flex flex-stretch footer">
-        <h4 class="col-10 md-6 my-0 mx-auto text-center"></h4>
+    <div class="container-fluid footer fixed-bottom">
+      <div class="">
+        <div class="">Tuomas Oinonen</div>
+        <div class="name">Matt Belway</div>
+        <div class="AppName">Green Shopper</div>
       </div>
     </div>
   </footer>
@@ -453,197 +455,215 @@
   </script>
 
   <script>
-    var _scannerIsRunning = false;
+  var _scannerIsRunning = false;
 
-    /* Set up and starting scanner */
+  /* Set up and starting scanner */
 
 
-    function startScanner() {
-      Quagga.init({
-          numberOfWorkers: navigator.hardwareConcurrency,
-          locate: true,
-          inputStream: {
-            name: "Live",
-            type: "LiveStream",
-            target: document.querySelector('#scanner-container'),
-            constraints: {
-              width: 400,
-              height: 300,
-              facingMode: "environment"
-            },
+  function startScanner() {
+    Quagga.init({
+        numberOfWorkers: navigator.hardwareConcurrency,
+        locate: true,
+        inputStream: {
+          name: "Live",
+          type: "LiveStream",
+          target: document.querySelector('#scanner-container'),
+          constraints: {
+            width: 400,
+            height: 300,
+            facingMode: "environment"
           },
-          area: { // defines rectangle of the detection/localization area
-            top: "0%", // top offset
-            right: "0%", // right offset
-            left: "0%", // left offset
-            bottom: "0%" // bottom offset
-          },
-          frequency: 10,
-          singleChannel: false, // used for debugging wrong results
-          locator: {
-            halfSample: true,
-            patchSize: "large",
-          },
-          decoder: {
-            readers: [
-              //"code_128_reader",
-              "ean_reader",
-              "ean_8_reader",
-              //"code_39_reader",
-              //"code_39_vin_reader",
-              //"codabar_reader",
-              "upc_reader",
-              //"upc_e_reader",
-              //"i2of5_reader"
-            ],
-            debug: {
-              showCanvas: true,
-              showPatches: true,
-              showFoundPatches: true,
-              showSkeleton: true,
-              showLabels: true,
-              showPatchLabels: true,
-              showRemainingPatchLabels: true,
-              boxFromPatches: {
-                showTransformed: true,
-                showTransformedBox: true,
-                showBB: true
-              }
-            },
-          },
-
         },
-        function(err) {
-          if (err) {
-            console.log(err);
-            return
-          }
+        area: { // defines rectangle of the detection/localization area
+          top: "0%", // top offset
+          right: "0%", // right offset
+          left: "0%", // left offset
+          bottom: "0%" // bottom offset
+        },
+        frequency: 10,
+        singleChannel: false, // used for debugging wrong results
+        locator: {
+          halfSample: true,
+          patchSize: "large",
+        },
+        decoder: {
+          readers: [
+            //"code_128_reader",
+            "ean_reader",
+            "ean_8_reader",
+            //"code_39_reader",
+            //"code_39_vin_reader",
+            //"codabar_reader",
+            "upc_reader",
+            //"upc_e_reader",
+            //"i2of5_reader"
+          ],
+          debug: {
+            showCanvas: true,
+            showPatches: true,
+            showFoundPatches: true,
+            showSkeleton: true,
+            showLabels: true,
+            showPatchLabels: true,
+            showRemainingPatchLabels: true,
+            boxFromPatches: {
+              showTransformed: true,
+              showTransformedBox: true,
+              showBB: true
+            }
+          },
+        },
 
-          console.log("Initialization finished. Ready to start");
+      },
+      function(err) {
+        if (err) {
+          console.log(err);
+          return
+        }
 
-          Quagga.start();
+        console.log("Initialization finished. Ready to start");
 
-          // Set flag to is running
-          _scannerIsRunning = true;
+        Quagga.start();
 
-        });
+        // Set flag to is running
+        _scannerIsRunning = true;
 
-      Quagga.onProcessed(function(result) {
-        var drawingCtx = Quagga.canvas.ctx.overlay,
-          drawingCanvas = Quagga.canvas.dom.overlay;
+      });
 
-        if (result) {
-          if (result.boxes) {
-            drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")), parseInt(drawingCanvas.getAttribute("height")));
-            result.boxes.filter(function(box) {
-              return box !== result.box;
-            }).forEach(function(box) {
-              Quagga.ImageDebug.drawPath(box, {
-                x: 0,
-                y: 1
-              }, drawingCtx, {
-                color: "green",
-                lineWidth: 2
-              });
-            });
-          }
+    Quagga.onProcessed(function(result) {
+      var drawingCtx = Quagga.canvas.ctx.overlay,
+        drawingCanvas = Quagga.canvas.dom.overlay;
 
-          if (result.box) {
-            Quagga.ImageDebug.drawPath(result.box, {
+      if (result) {
+        if (result.boxes) {
+          drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")), parseInt(drawingCanvas.getAttribute("height")));
+          result.boxes.filter(function(box) {
+            return box !== result.box;
+          }).forEach(function(box) {
+            Quagga.ImageDebug.drawPath(box, {
               x: 0,
               y: 1
             }, drawingCtx, {
-              color: "#00F",
+              color: "green",
               lineWidth: 2
             });
-          }
-
-          if (result.codeResult && result.codeResult.code) {
-            Quagga.ImageDebug.drawPath(result.line, {
-              x: 'x',
-              y: 'y'
-            }, drawingCtx, {
-              color: 'red',
-              lineWidth: 3
-            });
-          }
+          });
         }
-      });
+
+        if (result.box) {
+          Quagga.ImageDebug.drawPath(result.box, {
+            x: 0,
+            y: 1
+          }, drawingCtx, {
+            color: "#00F",
+            lineWidth: 2
+          });
+        }
+
+        if (result.codeResult && result.codeResult.code) {
+          Quagga.ImageDebug.drawPath(result.line, {
+            x: 'x',
+            y: 'y'
+          }, drawingCtx, {
+            color: 'red',
+            lineWidth: 3
+          });
+        }
+      }
+    });
 
 
       /* When Barcode is detected */
+      var last_result = [];
       Quagga.onDetected(function(result) {
+
         var barCode = result.codeResult.code;
-        console.log("Barcode detected and processed : [" + result.codeResult.code + "]", result);
-        console.log(result.codeResult.code);
+        last_result.push(barCode);
+        // console.log(last_result[0]);
+        // console.log("Barcode detected and processed : [" + result.codeResult.code + "]", result);
+        // console.log(result.codeResult.code);
         Quagga.stop();
         _scannerIsRunning = false;
         window.setTimeout(function(){
           $('#scannerModal').modal('hide');}, 1000);
 
-        $('.slider-for').slick('unslick');
-        $('.slider-nav').slick('unslick');
         let bottom = document.getElementById("slider-nav");
         let top = document.getElementById("slider-for");
-        fetch('https://greenshopper.azurewebsites.net/api/Scanner/' + barCode)
-        // .then(resp => resp.json())
-        // .then(response =>
-        // console.log('Success: ', JSON.stringify(response)));
+
+        // $(document).ready(function() {
+        $('.slider-for').slick('unslick');
+        $('.slider-nav').slick('unslick');
+
+
+        fetch('https://greenshopper.azurewebsites.net/api/Scanner/' + last_result[0])
         .then(function(resp) {
-          // console.log(resp);
+          console.log(resp);
           return resp.json();
         })
         .then(function(data) {
+          if (data.length === 0) {
+            console.log('error');
+          }
+          else{
           let users = data;
           console.log(users);
           users.forEach(function(element) {
 
-          let childDiv1 = document.createElement('div');
-          let childDiv2 = document.createElement('div');
+            let childDiv1 = document.createElement('div');
+            let childDiv2 = document.createElement('div');
 
-          let myImg1 = document.createElement('img');
-          myImg1.src = element.image;
-          let myImg2 = document.createElement('img');
-          myImg2.src = element.image;
+            let myImg1 = document.createElement('img');
+            myImg1.src = element.image;
+            let myImg2 = document.createElement('img');
+            myImg2.src = element.thumbnail;
 
-          let myTag = document.createElement('a');
-          myTag.setAttribute('href',"#");
-          myTag.addEventListener('click', alertFunction);
-          myTag.className = 'add';
-          myTag.id = 'add';
-          myTag.title = 'click to add to cart'
-          myTag.dataset.price = element.productPrice;
-          myTag.dataset.name = element.productName
+            let myTag = document.createElement('a');
+            myTag.setAttribute('href',"#");
+            myTag.addEventListener('click', alertFunction);
+            myTag.className = 'add';
+            myTag.id = 'add';
+            myTag.title = 'click to add to cart'
+            myTag.dataset.price = element.productPrice;
+            myTag.dataset.name = element.productName
 
-          let image = childDiv1.appendChild(myImg1);
-          let div = myTag.appendChild(childDiv1);
-          let anchor = top.appendChild(myTag);
-          console.log(anchor);
+            let image = childDiv1.appendChild(myImg1);
+            let div = myTag.appendChild(childDiv1);
+            let anchor = top.appendChild(myTag);
 
-          childDiv2.appendChild(myImg2);
-          bottom.appendChild(childDiv2);
-        })
-        $('.slick-for').slick('slickAdd');
-        $('.slider-for').slick({
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          arrows: false,
-          fade: true,
-          asNavFor: '.slider-nav'
-        });
-        $('.slick-nav').slick('slickAdd');
-        $('.slider-nav').slick({
-          slidesToShow: 3,
-          slidesToScroll: 1,
-          asNavFor: '.slider-for',
-          dots: true,
-          centerMode: true,
-          focusOnSelect: true
-        });
-
-      })
-      })
-    }
+            let image2 = childDiv2.appendChild(myImg2);
+            let div2 = bottom.appendChild(childDiv2);
+          })
+          // $('.slider-for').slick('unslick');
+          // $('.slider-for').removeClass("slick-initialized slick-slider");
+          // $('.slider-for').slick('destroy');
+          // $('.slider-for').slick('reinit');
+          // $('.slick-for').slick('slickAdd');
+          // $('.slider-for').slick('reinit');
+          $('.slider-for').slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: false,
+            fade: true,
+            asNavFor: '.slider-nav'
+          });
+          // $('.slider-nav').slick('unslick');
+          // $('.slider-nav').removeClass("slick-initialized slick-slider");
+          // $('.slider-nav').slick('destroy');
+          // $('.slider-nav').slick('reinit');
+          // $('.slick-nav').slick('slickAdd');
+          // $('.slider-nav').slick('reinit');
+          $('.slider-nav').slick({
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            asNavFor: '.slider-for',
+            dots: true,
+            centerMode: true,
+            focusOnSelect: true
+          });
+          }
+          })
+          })
+          }
 
 
     /* Turn off scanner if modal is closed before scanner is manually stopped */
@@ -670,82 +690,82 @@
 
 
   <script type="text/javascript">
-    $(document).ready(function() {
-      $('.slider-for').slick('unslick');
-      $('.slider-nav').slick('unslick');
-      let bottom = document.getElementById("slider-nav");
-      let top = document.getElementById("slider-for");
-      let url = 'https://randomuser.me/api/?results=4';
-      fetch(url)
-        .then(function(resp) {
-          // console.log(resp);
-          return resp.json();
-        })
-        .then(function(data) {
-          let users = data.results;
-          // console.log(data.results);
-          users.forEach(function(element) {
-
-            let childDiv1 = document.createElement('div');
-
-            let childDiv2 = document.createElement('div');
-
-
-            let myImg1 = document.createElement('img');
-            myImg1.src = element.picture.large;
-            // myImg1.dataset.price = element.location.postcode; //update to price
-            // myImg1.dataset.name = element.name.first
-
-            let myImg2 = document.createElement('img');
-            myImg2.src = element.picture.medium;
-
-
-            let myTag = document.createElement('a');
-            myTag.setAttribute('href',"#");
-            myTag.addEventListener('click', alertFunction);
-            myTag.className = 'add';
-            myTag.id = 'add';
-            myTag.title = 'click to add to cart'
-            myTag.dataset.price = element.location.postcode;
-            //update to price
-            myTag.dataset.name = element.name.first
-
-            let image = childDiv1.appendChild(myImg1);
-            // console.log(div);
-            let div = myTag.appendChild(childDiv1);
-            // console.log(div);
-            let anchor = top.appendChild(myTag);
-            // console.log(anchor);
-
-            childDiv2.appendChild(myImg2);
-            bottom.appendChild(childDiv2);
-
-
-          })
-          $('.slick-for').slick('slickAdd');
-          $('.slider-for').slick({
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            arrows: false,
-            fade: true,
-            asNavFor: '.slider-nav'
-          });
-          $('.slick-nav').slick('slickAdd');
-          $('.slider-nav').slick({
-            slidesToShow: 3,
-            slidesToScroll: 1,
-            asNavFor: '.slider-for',
-            dots: true,
-            centerMode: true,
-            focusOnSelect: true
-          });
-
-        })
-        .catch(function(err) {
-          console.log(err);
-        })
-
-    });
+    // $(document).ready(function() {
+    //   $('.slider-for').slick('unslick');
+    //   $('.slider-nav').slick('unslick');
+    //   let bottom = document.getElementById("slider-nav");
+    //   let top = document.getElementById("slider-for");
+    //   let url = 'https://randomuser.me/api/?results=4';
+    //   fetch(url)
+    //     .then(function(resp) {
+    //       console.log(resp);
+    //       return resp.json();
+    //     })
+    //     .then(function(data) {
+    //       let users = data.results;
+    //       console.log(data.results);
+    //       users.forEach(function(element) {
+    //
+    //         let childDiv1 = document.createElement('div');
+    //
+    //         let childDiv2 = document.createElement('div');
+    //
+    //
+    //         let myImg1 = document.createElement('img');
+    //         myImg1.src = element.picture.large;
+    //         // myImg1.dataset.price = element.location.postcode; //update to price
+    //         // myImg1.dataset.name = element.name.first
+    //
+    //         let myImg2 = document.createElement('img');
+    //         myImg2.src = element.picture.medium;
+    //
+    //
+    //         let myTag = document.createElement('a');
+    //         myTag.setAttribute('href',"#");
+    //         myTag.addEventListener('click', alertFunction);
+    //         myTag.className = 'add';
+    //         myTag.id = 'add';
+    //         myTag.title = 'click to add to cart'
+    //         myTag.dataset.price = element.location.postcode;
+    //         //update to price
+    //         myTag.dataset.name = element.name.first
+    //
+    //         let image = childDiv1.appendChild(myImg1);
+    //         // console.log(div);
+    //         let div = myTag.appendChild(childDiv1);
+    //         // console.log(div);
+    //         let anchor = top.appendChild(myTag);
+    //         // console.log(anchor);
+    //
+    //         childDiv2.appendChild(myImg2);
+    //         bottom.appendChild(childDiv2);
+    //
+    //
+    //       })
+    //       $('.slick-for').slick('slickAdd');
+    //       $('.slider-for').slick({
+    //         slidesToShow: 1,
+    //         slidesToScroll: 1,
+    //         arrows: false,
+    //         fade: true,
+    //         asNavFor: '.slider-nav'
+    //       });
+    //       $('.slick-nav').slick('slickAdd');
+    //       $('.slider-nav').slick({
+    //         slidesToShow: 3,
+    //         slidesToScroll: 1,
+    //         asNavFor: '.slider-for',
+    //         dots: true,
+    //         centerMode: true,
+    //         focusOnSelect: true
+    //       });
+    //
+    //     })
+    //     .catch(function(err) {
+    //       console.log(err);
+    //     })
+    //
+    // });
 
   </script>
 
@@ -822,10 +842,10 @@
       // console.log($(this).attr('data-name'));
       // console.log($(this).attr('data-price'));
       console.log("Item was triggered");
-    }
+    };
 
-  </script>
 
+</script>
 
 </body>
 

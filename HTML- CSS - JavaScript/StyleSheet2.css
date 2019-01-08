@@ -1,3 +1,4 @@
+
 .body {
   background-color: none;
 }
@@ -26,9 +27,6 @@
   background-color: lightgrey;
 }
 
-.badge:hover {
-  color: red;
-}
 
 
 /* Cart dropdown listed items styling */
@@ -122,4 +120,16 @@
 .modal-backdrop
 {
   opacity:0.85 !important;
+}
+
+.footer {
+  background-color: black;
+  height: 12%;
+  color: white;
+  font-size: 10pt;
+
+}
+
+.AppName {
+  font-size: 18pt;
 }
