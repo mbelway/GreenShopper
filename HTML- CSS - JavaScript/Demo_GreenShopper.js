@@ -77,6 +77,7 @@
       return totalCost.toFixed(2); // .toFixed ensures 2 decimals after price
     };
 
+
     // list full Cart array - all items
     obj.listCart = function() {
       var cartCopy = [];

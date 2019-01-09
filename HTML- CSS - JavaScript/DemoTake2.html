@@ -9,18 +9,10 @@
 
   <!-- CSS style sheet -->
   <link rel="stylesheet" type="text/css" href="StyleSheet2.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
   <!-- For Bootstrap -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
-
-  <!-- script for the quaggaJS API -->
-  <!-- <script src="https://cdn.rawgit.com/serratus/quaggaJS/0420d5e0/dist/quagga.min.js"></script> -->
-
-  <!-- script for jquery -->
-  <!-- <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script> -->
-
-
 
   <title>Green Shopper Demo</title>
 
@@ -58,12 +50,11 @@
 
 <body class="body">
 
+  <!-- Start navigation bar -->
   <div id="fullSite" class="container-fluid">
     <nav class="navbar fixed-top navbar-dark bg-dark navbar-expand-lg navbar-template row">
       <a class="navbar-brand ml-3 mr-2" href="#"><img src="../icons/globe_icon.png" alt="earth" style="width: 35px;"></a>
-
       <div class="d-flex flex-row order-2 order-lg-3 ml-auto">
-
         <div id="cart-info" class="nav-info cart-info d-flex mr-3">
           <span class="cart-info-icon">
             <img src="../icons/cart.svg" alt="cart image" style="width: 2rem;" class="cart-img mr-2">
@@ -72,7 +63,6 @@
             <span class="badge badge-light" id="totalItems"></span>
           </div>
         </div>
-
       </div>
 
       <button class="navbar-toggler mr-auto" type="button" data-toggle="collapse" aria-expanded="false" data-target="#navbarNavDropdown">
@@ -81,133 +71,83 @@
       <div class="collapse navbar-collapse order-3 order-lg-2" id="navbarNavDropdown">
         <ul class="navbar-nav ml-3 mt-3">
           <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">About Us</a></li>
           <li class="nav-item"><a class="nav-link" href="#">Features</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Pricing</a></li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown">Dropdown link</a>
-            <div class="dropdown-menu dropdown-menu-right mx-0">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+            <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown">Climate Report</a>
+            <div class="dropdown-menu dropdown-menu-right ml-5 mr-3">
+              <a class="dropdown-item" href="#">Read The Report</a>
+              <a class="dropdown-item" href="#">Climate Impact Calculations</a>
+              <a class="dropdown-item" href="#">Take A Stand</a>
             </div>
           </li>
         </ul>
       </div>
     </nav>
   </div>
-  <!-- End of Navigation Bar -->
+  <!-- End Navigation Bar -->
 
-
-
-  <!-- Begin Main Content Area -->
-  <!-- <section class="content-area py-5" id="content-area">
-    <div class="container-fluid align-items-center"> -->
+  <!-- Start Scan modal -->
   <div class="row max-height justify-content-center align-items-center my-5">
     <div class="col-10 text-center mt-5">
-
-      <!-- Scan modal button -->
-      <button type="button" class="btn btn-success" id="scanItem" data-toggle="modal" data-target="#scannerModal"><img src="../icons/camcorder.svg" style="width: 30px;"><br>
+      <button type="button" class="btn scanItem" id="scanItem" data-toggle="modal" data-target="#scannerModal"><img src="../icons/camcorder.svg" style="width: 30px;"><br>
         Scan Item
       </button>
-      <!-- Modal container -->
       <div class="modal fade" data-backdrop="static" id="scannerModal" tabindex="-1" role="dialog" aria-labelledby="scannerModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
-            <!-- modal header items -->
             <div class="modal-header">
-              <h5 class="modal-title" id="scannerModalLabel">Hold product ~5cm from camera for best results</h5>
+              <h5 class="modal-title" id="scannerModalLabel">Best result when held ~5 cm from camera</h5>
               <button type="button" class="close" id="modalClose" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <!-- Modal Scan Window -->
             <div class="modal-body">
-              <!-- scanner area -->
               <div id="scanner-container" class="viewport"></div>
             </div>
-            <!-- modal footer items -->
-            <!-- <div class="modal-footer justify-content-center">
-                  <button type="button" class="btn btn-primary" id="scanbtn">Start/Stop Scan</button>
-                </div> -->
           </div>
         </div>
       </div>
-      <!-- End modal container -->
     </div>
+    <!-- End Scan modal -->
 
-    <!-- start fold-out cart -->
+    <!-- Start hidden cart -->
     <div class="cart" id="cart">
-
-      <!-- start cart items -->
-      <div class="cartItem d-flex flex-col justify-content-around text-capitalize">
-
-        <ul class="showCart list-group" id="showCart">
-        </ul>
-
-        <!-- <img src="../icons/globe_icon.png" class="cart-image" id="item-img" alt="">
-        <div class="item-text">
-          <p id="cart-item-title">cart item
-            <br>
-            <span>$</span>
-            <span id="cart-item-price" class="cart-item-price">10.99</span>
-          </p>
-        </div>
-        <button type="button" class="btn trashIcon" id="trashIcon" aria-label="Close">
-          <span>&times;</span>
-        </button> -->
-      </div>
-      <!-- end cart item -->
-
-      <!-- start cart price totals -->
-
-      <div class="totalCart d-flex justify-content-around text-capitalize mx-5 mt-2"><b>Total: $<span id="totalCart"></span></b></div>
-
-      <!-- <div class="cartTotal d-flex justify-content-around text-capitalize margin-top-5">
-        <h5>total</h5>
-        <h5><strong id="cart-total" class="bold text">$10.00</strong></h5>
-      </div> -->
-
-      <!-- start clear & checkout buttons -->
-      <div class="cart-buttons-container d-flex justify-content-around mt-3">
+      <div class="cart-buttons-container d-flex justify-content-around mb-2">
         <button class="clearCart text-uppercase mx-auto" id="clearCart">Clear Cart</button>
         <button class="checkOut text-uppercase mx-auto" id="checkOut">Check Out</button>
-        <!-- <a href="#" id="clearCart" class="btn text-uppercase clearCart">clear cart</a> -->
-        <!-- <a href="#" id="checkOut" class="btn text-uppercase checkOut">checkout</a> -->
+      </div>
+      <!-- start cart item list -->
+      <div class="cartItem flex-col d-flex justify-content-around text-capitalize">
+        <ul class=" showCart align-self-start list-group mx-0" id="showCart">
+        </ul>
+      </div>
+      <!-- start price totals -->
+      <div class="totalCart container d-flex text-capitalize justify-content-around mt-3">
+        <div><b>Total:</b> €<span id="totalCart"></span></div>
+        <div><b>CO<sub>2</sub>e:</b> <span id="totalCart">34.4</span></div>
       </div>
     </div>
-
   </div>
 
 
-  <!-- slider container begin -->
-  <!-- <section class="view-area py-5" id="view-area">
-    <div class="container align-items-center"> -->
-      <div class="row">
-        <div class="col-10 align-middle mx-auto text-center">
-          <!-- start top slider dislay -->
-          <div class="slider-for slider-active mb-5" id="slider-for">
-          </div>
-
-          <!-- start bottom display images -->
-          <div class="slider-nav mt-0" id="slider-nav">
-          </div>
-
-        </div>
+  <!-- Start carousel -->
+  <div class="row">
+    <div class="col-10 align-middle mx-auto text-center">
+      <!-- start top dislay -->
+      <div class="slider-for slider-active mb-5" id="slider-for">
       </div>
-    <!-- </div>
-  </section> -->
-  <!-- slider container end -->
+      <!-- start bottom display images -->
+      <div class="slider-nav mt-0" id="slider-nav">
+      </div>
+    </div>
+  </div>
 
-
-
-  <!-- Footer area -->
+  <!-- Start footer -->
   <footer>
     <div class="container-fluid footer fixed-bottom">
-      <div class="">
-        <div class="">Tuomas Oinonen</div>
-        <div class="name">Matt Belway</div>
-        <div class="AppName">Green Shopper</div>
-      </div>
+        <div class="ourNames row justify-content-center mt-2 animated rubberBand">Tuomas Oinonen & Matt Belway</div>
+        <div class="copyright row justify-content-center"><span><b>GreenShopper<sup>©</sup> 2019</span></div>
     </div>
   </footer>
 
@@ -216,12 +156,45 @@
   <script src="../Necessary Files/quagga.min.js"></script>
 
 
-  <!-- <script>
+  <!-- shoppingCart script -->
+  <script type="text/javascript" src="Demo_GreenShopper.js"></script>
+
+  <!-- For Bootstrap 4: jQuery first, then Popper.js and then Bootstrap JS-->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+  <!-- Requirements for Slick -->
+  <script type="text/javascript" src="../Necessary Files/slick.min.js"></script>
+
+
+  <!-- slick slider carousel -->
+  <script type="text/javascript">
+    // Top image display
+    $(document).ready(function() {
+      $('.slider-for').slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: false,
+        fade: true,
+        asNavFor: '.slider-nav'
+      });
+      // Bottom display images
+      $('.slider-nav').slick({
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        asNavFor: '.slider-for',
+        dots: false,
+        centerMode: true,
+        focusOnSelect: true,
+      });
+    });
+  </script>
+
+  <script>
     var _scannerIsRunning = false;
-
-    /* Set up and starting scanner */
-
-
     function startScanner() {
       Quagga.init({
           numberOfWorkers: navigator.hardwareConcurrency,
@@ -275,27 +248,22 @@
               }
             },
           },
-
         },
         function(err) {
           if (err) {
             console.log(err);
             return
           }
-
           console.log("Initialization finished. Ready to start");
-
+          $('.slider-for').empty();
+          $('.slider-nav').empty();
           Quagga.start();
-
           // Set flag to is running
           _scannerIsRunning = true;
-
         });
-
       Quagga.onProcessed(function(result) {
         var drawingCtx = Quagga.canvas.ctx.overlay,
           drawingCanvas = Quagga.canvas.dom.overlay;
-
         if (result) {
           if (result.boxes) {
             drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")), parseInt(drawingCanvas.getAttribute("height")));
@@ -333,253 +301,6 @@
           }
         }
       });
-
-
-      /* When Barcode is detected */
-      Quagga.onDetected(function(result) {
-        var barCode = result.codeResult.code;
-        console.log("Barcode detected and processed : [" + result.codeResult.code + "]", result);
-        console.log(result.codeResult.code);
-        Quagga.stop();
-        _scannerIsRunning = false;
-        window.setTimeout(function(){
-          $('#scannerModal').modal('hide');}, 1000);
-
-        let bottom = document.getElementById("slider-nav");
-        let top = document.getElementById("slider-for");
-        fetch('https://greenshopper.azurewebsites.net/api/Scanner/' + barCode)
-        // .then(resp => resp.json())
-        // .then(response =>
-        // console.log('Success: ', JSON.stringify(response)));
-        .then(function(resp) {
-          // console.log(resp);
-          return resp.json();
-        })
-        .then(function(data) {
-          let users = data;
-          console.log(users);
-          users.forEach(function(element) {
-
-          let childDiv1 = document.createElement('div');
-          let childDiv2 = document.createElement('div');
-
-          let myImg1 = document.createElement('img');
-          myImg1.src = element.image;
-          let myImg2 = document.createElement('img');
-          myImg2.src = element.image;
-
-          let myTag = document.createElement('a');
-          myTag.setAttribute('href',"#");
-          myTag.addEventListener('click', alertFunction);
-          myTag.className = 'add';
-          myTag.id = 'add';
-          myTag.title = 'click to add to cart'
-          myTag.dataset.price = element.productPrice;
-          myTag.dataset.name = element.productName
-
-          let image = childDiv1.appendChild(myImg1);
-          let div = myTag.appendChild(childDiv1);
-          let anchor = top.appendChild(myTag);
-          console.log(anchor);
-
-          childDiv2.appendChild(myImg2);
-          bottom.appendChild(childDiv2);
-        })
-      })
-      })
-    }
-
-
-    /* Turn off scanner if modal is closed before scanner is manually stopped */
-    document.getElementById("modalClose").addEventListener("click", function() {
-        if (_scannerIsRunning) {
-          Quagga.stop();
-          _scannerIsRunning = false;
-        } else {}
-      },
-      false);
-
-    /* Starting and stopping the scanner */
-    document.getElementById("scanItem").addEventListener("click", function() {
-        if (_scannerIsRunning) {
-          Quagga.stop();
-          // Added code to stop scanner
-          _scannerIsRunning = false;
-        } else {
-          startScanner();
-        }
-      },
-      false);
-  </script> -->
-
-  <!--   END SCANNER -->
-
-  <!-- shoppingCart script -->
-  <!-- <script src="/Users/matthewbelway/CodeBootcamp/Demo Testing/shoppingCart.js"></script> -->
-  <script type="text/javascript" src="Demo_GreenShopper.js"></script>
-
-  <!-- For Bootstrap 4: jQuery first, then Popper.js and then Bootstrap JS-->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-
-  <!-- Requirements for Slick -->
-  <!-- <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-  <script type="text/javascript" src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script> -->
-  <script type="text/javascript" src="../Necessary Files/slick.min.js"></script>
-
-
-  <!-- slick slider carousel -->
-  <script type="text/javascript">
-    // Top image display
-    $(document).ready(function() {
-      $('.slider-for').slick({
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        arrows: false,
-        fade: true,
-        asNavFor: '.slider-nav'
-      });
-      // Bottom display images
-      $('.slider-nav').slick({
-        slidesToShow: 3,
-        slidesToScroll: 1,
-        asNavFor: '.slider-for',
-        dots: false,
-        centerMode: true,
-        focusOnSelect: true,
-      });
-    });
-
-
-
-
-  </script>
-
-  <script>
-  var _scannerIsRunning = false;
-
-  /* Set up and starting scanner */
-
-
-  function startScanner() {
-
-    Quagga.init({
-        numberOfWorkers: navigator.hardwareConcurrency,
-        locate: true,
-        inputStream: {
-          name: "Live",
-          type: "LiveStream",
-          target: document.querySelector('#scanner-container'),
-          constraints: {
-            width: 400,
-            height: 300,
-            facingMode: "environment"
-          },
-        },
-        area: { // defines rectangle of the detection/localization area
-          top: "0%", // top offset
-          right: "0%", // right offset
-          left: "0%", // left offset
-          bottom: "0%" // bottom offset
-        },
-        frequency: 10,
-        singleChannel: false, // used for debugging wrong results
-        locator: {
-          halfSample: true,
-          patchSize: "large",
-        },
-        decoder: {
-          readers: [
-            //"code_128_reader",
-            "ean_reader",
-            "ean_8_reader",
-            //"code_39_reader",
-            //"code_39_vin_reader",
-            //"codabar_reader",
-            "upc_reader",
-            //"upc_e_reader",
-            //"i2of5_reader"
-          ],
-          debug: {
-            showCanvas: true,
-            showPatches: true,
-            showFoundPatches: true,
-            showSkeleton: true,
-            showLabels: true,
-            showPatchLabels: true,
-            showRemainingPatchLabels: true,
-            boxFromPatches: {
-              showTransformed: true,
-              showTransformedBox: true,
-              showBB: true
-            }
-          },
-        },
-
-      },
-      function(err) {
-        if (err) {
-          console.log(err);
-          return
-        }
-
-        console.log("Initialization finished. Ready to start");
-        $('.slider-for').empty();
-        $('.slider-nav').empty();
-
-        Quagga.start();
-
-        // Set flag to is running
-        _scannerIsRunning = true;
-
-      });
-
-    Quagga.onProcessed(function(result) {
-      var drawingCtx = Quagga.canvas.ctx.overlay,
-        drawingCanvas = Quagga.canvas.dom.overlay;
-
-      if (result) {
-        if (result.boxes) {
-          drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")), parseInt(drawingCanvas.getAttribute("height")));
-          result.boxes.filter(function(box) {
-            return box !== result.box;
-          }).forEach(function(box) {
-            Quagga.ImageDebug.drawPath(box, {
-              x: 0,
-              y: 1
-            }, drawingCtx, {
-              color: "green",
-              lineWidth: 2
-            });
-          });
-        }
-
-        if (result.box) {
-          Quagga.ImageDebug.drawPath(result.box, {
-            x: 0,
-            y: 1
-          }, drawingCtx, {
-            color: "#00F",
-            lineWidth: 2
-          });
-        }
-
-        if (result.codeResult && result.codeResult.code) {
-          Quagga.ImageDebug.drawPath(result.line, {
-            x: 'x',
-            y: 'y'
-          }, drawingCtx, {
-            color: 'red',
-            lineWidth: 3
-          });
-        }
-      }
-    });
-
-
       /* When Barcode is detected */
       var last_result = [];
       Quagga.onDetected(function(result) {
@@ -590,84 +311,71 @@
         // console.log(result.codeResult.code);
         Quagga.stop();
         _scannerIsRunning = false;
-        window.setTimeout(function(){
-          $('#scannerModal').modal('hide');}, 1000);
+        window.setTimeout(function() {
+          $('#scannerModal').modal('hide');
+        }, 1000);
 
         let bottom = document.getElementById("slider-nav");
         let top = document.getElementById("slider-for");
 
         fetch('https://greenshopper.azurewebsites.net/api/Scanner/' + last_result[0])
-        .then(function(resp) {
-          console.log(resp);
-          return resp.json();
-        })
-        .then(function(data) {
-          if (data.length === 0) {
-            console.log('error');
-          }
-          else{
-
-          let users = data;
-          console.log(users);
-          users.forEach(function(element) {
-
-
-            let childDiv1 = document.createElement('div');
-            let childDiv2 = document.createElement('div');
-
-            let myImg1 = document.createElement('img');
-            myImg1.src = element.image;
-            let myImg2 = document.createElement('img');
-            myImg2.src = element.thumbnail;
-
-            let myTag = document.createElement('a');
-            myTag.setAttribute('href',"#");
-            myTag.addEventListener('click', alertFunction);
-            myTag.className = 'add';
-            myTag.id = 'add';
-            myTag.title = 'click to add to cart'
-            myTag.dataset.price = element.productPrice;
-            myTag.dataset.name = element.productName
-
-            let image = childDiv1.appendChild(myImg1);
-            let div = myTag.appendChild(childDiv1);
-            let anchor = top.appendChild(myTag);
-
-            let image2 = childDiv2.appendChild(myImg2);
-            let div2 = bottom.appendChild(childDiv2);
-
-            // $('.slider-for').slick('unslick');
-            // $('.slider-nav').slick('unslick');
+          .then(function(resp) {
+            console.log(resp);
+            return resp.json();
           })
+          .then(function(data) {
+            if (data.length === 0) {
+              console.log('error');
+            } else {
+              let users = data;
+              console.log(users);
+              users.forEach(function(element) {
+                let childDiv1 = document.createElement('div');
+                let childDiv2 = document.createElement('div');
+                let myImg1 = document.createElement('img');
+                myImg1.src = element.image;
+                let myImg2 = document.createElement('img');
+                myImg2.src = element.thumbnail;
+                let myTag = document.createElement('a');
+                myTag.setAttribute('href', "#");
+                myTag.addEventListener('click', alertFunction);
+                myTag.className = 'add';
+                myTag.id = 'add';
+                myTag.title = 'click to add to cart'
+                myTag.dataset.price = element.productPrice;
+                myTag.dataset.name = element.productName;
+                myTag.dataset.eWeight = element.eWeight;
 
-          $('.slider-for').slick('unslick');
-          // $('.slider-for').empty();
-          $('.slider-for').slick({
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            arrows: false,
-            fade: true,
-            asNavFor: '.slider-nav'
-          });
+                let image = childDiv1.appendChild(myImg1);
+                let div = myTag.appendChild(childDiv1);
+                let anchor = top.appendChild(myTag);
 
+                let image2 = childDiv2.appendChild(myImg2);
+                let div2 = bottom.appendChild(childDiv2);
+              })
 
-          $('.slider-nav').slick('unslick');
-          // $('.slider-nav').empty();
-          $('.slider-nav').slick({
-            slidesToShow: 3,
-            slidesToScroll: 1,
-            asNavFor: '.slider-for',
-            dots: false,
-            centerMode: true,
-            focusOnSelect: true
-          });
-          }
+              $('.slider-for').slick('unslick');
+              $('.slider-for').slick({
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                arrows: false,
+                fade: true,
+                asNavFor: '.slider-nav'
+              });
+
+              $('.slider-nav').slick('unslick');
+              $('.slider-nav').slick({
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                asNavFor: '.slider-for',
+                dots: false,
+                centerMode: true,
+                focusOnSelect: true
+              });
+            }
           })
-          })
-          }
-
-
-
+      })
+    }
     /* Turn off scanner if modal is closed before scanner is manually stopped */
     document.getElementById("modalClose").addEventListener("click", function() {
         if (_scannerIsRunning) {
@@ -676,7 +384,6 @@
         } else {}
       },
       false);
-
     /* Starting and stopping the scanner */
     document.getElementById("scanItem").addEventListener("click", function() {
         if (_scannerIsRunning) {
@@ -690,90 +397,9 @@
       false);
   </script>
 
-
-  <script type="text/javascript">
-    // $(document).ready(function() {
-    //   $('.slider-for').slick('unslick');
-    //   $('.slider-nav').slick('unslick');
-    //   let bottom = document.getElementById("slider-nav");
-    //   let top = document.getElementById("slider-for");
-    //   let url = 'https://randomuser.me/api/?results=4';
-    //   fetch(url)
-    //     .then(function(resp) {
-    //       console.log(resp);
-    //       return resp.json();
-    //     })
-    //     .then(function(data) {
-    //       let users = data.results;
-    //       console.log(data.results);
-    //       users.forEach(function(element) {
-    //
-    //         let childDiv1 = document.createElement('div');
-    //
-    //         let childDiv2 = document.createElement('div');
-    //
-    //
-    //         let myImg1 = document.createElement('img');
-    //         myImg1.src = element.picture.large;
-    //         // myImg1.dataset.price = element.location.postcode; //update to price
-    //         // myImg1.dataset.name = element.name.first
-    //
-    //         let myImg2 = document.createElement('img');
-    //         myImg2.src = element.picture.medium;
-    //
-    //
-    //         let myTag = document.createElement('a');
-    //         myTag.setAttribute('href',"#");
-    //         myTag.addEventListener('click', alertFunction);
-    //         myTag.className = 'add';
-    //         myTag.id = 'add';
-    //         myTag.title = 'click to add to cart'
-    //         myTag.dataset.price = element.location.postcode;
-    //         //update to price
-    //         myTag.dataset.name = element.name.first
-    //
-    //         let image = childDiv1.appendChild(myImg1);
-    //         // console.log(div);
-    //         let div = myTag.appendChild(childDiv1);
-    //         // console.log(div);
-    //         let anchor = top.appendChild(myTag);
-    //         // console.log(anchor);
-    //
-    //         childDiv2.appendChild(myImg2);
-    //         bottom.appendChild(childDiv2);
-    //
-    //
-    //       })
-    //       $('.slick-for').slick('slickAdd');
-    //       $('.slider-for').slick({
-    //         slidesToShow: 1,
-    //         slidesToScroll: 1,
-    //         arrows: false,
-    //         fade: true,
-    //         asNavFor: '.slider-nav'
-    //       });
-    //       $('.slick-nav').slick('slickAdd');
-    //       $('.slider-nav').slick({
-    //         slidesToShow: 3,
-    //         slidesToScroll: 1,
-    //         asNavFor: '.slider-for',
-    //         dots: true,
-    //         centerMode: true,
-    //         focusOnSelect: true
-    //       });
-    //
-    //     })
-    //     .catch(function(err) {
-    //       console.log(err);
-    //     })
-    //
-    // });
-
-  </script>
-
   <script>
-//   ********** Everything CART related *******
 
+    //   ********** Everything CART related *******
     // Cart fold-out
     document.getElementById("cart-info").addEventListener("click", function() {
       const cart = document.getElementById("cart");
@@ -781,9 +407,9 @@
       // console.log(cart);
     })
 
-    // adding items to cart by clicking *********
+    // adding items to cart by clicking
     $("#slider-for").on("click", "a.add", function(event) {
-    // $(".add").click(function(event) {
+      // $(".add").click(function(event) {
       event.preventDefault();
       var name = $(this).attr("data-name");
       // console.log(name);
@@ -794,8 +420,7 @@
       displayCart();
     });
 
-
-    // clear cart button *********
+    // clear cart button
     $("#clearCart").click(function(event) {
       shoppingCart.clearCart();
       displayCart();
@@ -818,19 +443,21 @@
           " <button class='btn btn-link btn-sm delete-item' data-name='" +
           cartArray[i].name + "'><img src='../icons/chevron-down.svg' style='width: 15px;'></button></div>" +
           "</li>";
-          // console.log(output);
+        // console.log(output);
       }
       $("#showCart").html(output);
       $("#totalCart").html(shoppingCart.totalCost());
       $("#totalItems").html(shoppingCart.countCart());
     }
-    // remove items one at a time upon click *********
+
+    // remove items one at a time upon click
     $("#showCart").on("click", ".delete-item", function(event) {
       var name = $(this).attr("data-name");
       shoppingCart.removeItemFromCart(name);
       displayCart();
     });
-    // add to item count one at a time upon click *********
+
+    // add to item count one at a time upon click
     $("#showCart").on("click", ".plus-item", function(event) {
       var name = $(this).attr("data-name");
       shoppingCart.addItemToCart(name);
@@ -840,17 +467,27 @@
     displayCart();
 
     function alertFunction() {
-      alert("Added to cart");
-      window.setTimeout(function(){
+      // alert("Added to cart");
+      window.setTimeout(function() {
         $('.slider-for').empty();
-        $('.slider-nav').empty();}, 500);
+        $('.slider-nav').empty();
+      }, 500);
       // console.log($(this).attr('data-name'));
       // console.log($(this).attr('data-price'));
       console.log("Item was triggered");
     };
 
+    $(function(){
+    var animations = 'animated bounce';
+    var animationEnd = 'animationend oAnimationEnd mozAnimationEnd webkitAnimationEnd';
+    $('#slider-for').on('click', function(){
+      $('#totalItems').addClass(animations).one(animationEnd, function(){
+        $(this).removeClass(animations);
+        });
+      });
+    });
 
-</script>
+  </script>
 
 </body>
 

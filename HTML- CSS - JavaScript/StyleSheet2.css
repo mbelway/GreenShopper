@@ -14,17 +14,21 @@
   background-color: lightgrey;
 }
 
-
-
 .cart-info {
   border: none;
   border-radius: 3px;
   padding: 7px;
   align-self: center;
+  position: relative;
 }
 
 .cart-info:hover {
   background-color: lightgrey;
+}
+
+#totalItems {
+  animation-duration: .7s;
+  animation-delay: .1s;
 }
 
 
@@ -33,7 +37,8 @@
 .cart {
   position: fixed;
   min-height: 10rem;
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: lightblue;
+  opacity: 0.9;
   top: 0;
   right: 0;
   transition: all 0.4s ease-in-out;
@@ -43,9 +48,13 @@
 
 .show-cart {
   width: auto;
+  max-height: 60%;
   padding: 2rem .5rem;
   top: 65px;
   transform: rotateY(-360deg);
+  overflow: auto;
+  border-radius: 3px;
+  border: 1px solid lightgrey;
 }
 
 .clearCart, .checkOut {
@@ -72,10 +81,6 @@
   text-transform: capitalize;
 }
 
-
-.cart-item-price {
-}
-
 .cart-item img {
   position: relative;
 }
@@ -87,7 +92,6 @@
 }
 
 /*   Slick styling */
-
 .slider-for img {
   margin: 0 auto;
   border-radius: 70px;
@@ -101,7 +105,7 @@
 }
 .slider-nav img
 {
-  margin: 0 auto;
+  margin: 0 auto !important;
 }
 
 .slider-nav .slick-slide img:hover {
@@ -109,6 +113,32 @@
 }
 
 /* QuaggaJS scanner */
+
+.scanItem {
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 3px;
+  box-shadow: 2px 3px lightgrey;
+}
+
+.scanItem:hover {
+  background-color: #3e8e41;
+  box-shadow: 0 0 lightgrey;
+}
+
+.scanItem:active {
+  background-color: #3e8e41;
+  box-shadow: 0 0 lightgrey;
+  transform: translateY(3px);
+}
 
 #scanner-container {
   width: 100%;
@@ -125,7 +155,17 @@
   height: 12%;
   color: white;
   font-size: 10pt;
+}
 
+.copyright {
+  font-family: courier;
+  color: green;
+  font-size: 11pt;
+}
+
+.ourNames {
+  font-family: Verdana;
+  font-size: 12pt;
 }
 
 .AppName {
