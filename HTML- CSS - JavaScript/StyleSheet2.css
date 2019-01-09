@@ -39,8 +39,6 @@
   transition: all 0.4s ease-in-out;
   width: 0;
   overflow: hidden;
-  z-index: 5;
-
 }
 
 .show-cart {

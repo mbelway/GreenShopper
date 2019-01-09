@@ -107,7 +107,7 @@
 
       <!-- Scan modal button -->
       <button type="button" class="btn btn-success" id="scanItem" data-toggle="modal" data-target="#scannerModal"><img src="../icons/camcorder.svg" style="width: 30px;"><br>
-        Start Scan
+        Scan Item
       </button>
       <!-- Modal container -->
       <div class="modal fade" data-backdrop="static" id="scannerModal" tabindex="-1" role="dialog" aria-labelledby="scannerModalLabel" aria-hidden="true">
@@ -115,7 +115,7 @@
           <div class="modal-content">
             <!-- modal header items -->
             <div class="modal-header">
-              <h5 class="modal-title" id="scannerModalLabel">Modal Scanner</h5>
+              <h5 class="modal-title" id="scannerModalLabel">Hold product ~5cm from camera for best results</h5>
               <button type="button" class="close" id="modalClose" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -447,11 +447,15 @@
         slidesToShow: 3,
         slidesToScroll: 1,
         asNavFor: '.slider-for',
-        dots: true,
+        dots: false,
         centerMode: true,
-        focusOnSelect: true
+        focusOnSelect: true,
       });
     });
+
+
+
+
   </script>
 
   <script>
@@ -461,6 +465,7 @@
 
 
   function startScanner() {
+
     Quagga.init({
         numberOfWorkers: navigator.hardwareConcurrency,
         locate: true,
@@ -522,6 +527,8 @@
         }
 
         console.log("Initialization finished. Ready to start");
+        $('.slider-for').empty();
+        $('.slider-nav').empty();
 
         Quagga.start();
 
@@ -576,7 +583,6 @@
       /* When Barcode is detected */
       var last_result = [];
       Quagga.onDetected(function(result) {
-
         var barCode = result.codeResult.code;
         last_result.push(barCode);
         // console.log(last_result[0]);
@@ -590,11 +596,6 @@
         let bottom = document.getElementById("slider-nav");
         let top = document.getElementById("slider-for");
 
-        // $(document).ready(function() {
-        $('.slider-for').slick('unslick');
-        $('.slider-nav').slick('unslick');
-
-
         fetch('https://greenshopper.azurewebsites.net/api/Scanner/' + last_result[0])
         .then(function(resp) {
           console.log(resp);
@@ -605,9 +606,11 @@
             console.log('error');
           }
           else{
+
           let users = data;
           console.log(users);
           users.forEach(function(element) {
+
 
             let childDiv1 = document.createElement('div');
             let childDiv2 = document.createElement('div');
@@ -632,13 +635,13 @@
 
             let image2 = childDiv2.appendChild(myImg2);
             let div2 = bottom.appendChild(childDiv2);
+
+            // $('.slider-for').slick('unslick');
+            // $('.slider-nav').slick('unslick');
           })
-          // $('.slider-for').slick('unslick');
-          // $('.slider-for').removeClass("slick-initialized slick-slider");
-          // $('.slider-for').slick('destroy');
-          // $('.slider-for').slick('reinit');
-          // $('.slick-for').slick('slickAdd');
-          // $('.slider-for').slick('reinit');
+
+          $('.slider-for').slick('unslick');
+          // $('.slider-for').empty();
           $('.slider-for').slick({
             slidesToShow: 1,
             slidesToScroll: 1,
@@ -646,17 +649,15 @@
             fade: true,
             asNavFor: '.slider-nav'
           });
-          // $('.slider-nav').slick('unslick');
-          // $('.slider-nav').removeClass("slick-initialized slick-slider");
-          // $('.slider-nav').slick('destroy');
-          // $('.slider-nav').slick('reinit');
-          // $('.slick-nav').slick('slickAdd');
-          // $('.slider-nav').slick('reinit');
+
+
+          $('.slider-nav').slick('unslick');
+          // $('.slider-nav').empty();
           $('.slider-nav').slick({
             slidesToShow: 3,
             slidesToScroll: 1,
             asNavFor: '.slider-for',
-            dots: true,
+            dots: false,
             centerMode: true,
             focusOnSelect: true
           });
@@ -664,6 +665,7 @@
           })
           })
           }
+
 
 
     /* Turn off scanner if modal is closed before scanner is manually stopped */
@@ -839,6 +841,9 @@
 
     function alertFunction() {
       alert("Added to cart");
+      window.setTimeout(function(){
+        $('.slider-for').empty();
+        $('.slider-nav').empty();}, 500);
       // console.log($(this).attr('data-name'));
       // console.log($(this).attr('data-price'));
       console.log("Item was triggered");
